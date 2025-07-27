@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FUTUR Certify - Authentification de Certificats</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'navy': '#0b1d3a',
+                        'cyan': '#00ffff',
+                        'orange': '#ff7f00'
+                    },
+                    fontFamily: {
+                        'montserrat': ['Montserrat', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-navy min-h-screen font-montserrat">
+    <!-- Header -->
+    <header class="bg-navy border-b border-cyan/20 py-6">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 bg-gradient-to-r from-cyan to-orange rounded-lg flex items-center justify-center">
+                        <i class="fas fa-certificate text-navy text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold text-white">FUTUR Certify</h1>
+                        <p class="text-cyan text-sm">Authentification de Certificats</p>
+                    </div>
+                </div>
+                <a href="admin.html" class="bg-orange hover:bg-orange/80 text-white px-6 py-2 rounded-lg font-medium transition-colors">
+                    <i class="fas fa-user-shield mr-2"></i>Admin
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-12">
+        <!-- Hero Section -->
+        <div class="text-center mb-12">
+            <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">
+                Vérifiez l'authenticité de votre certificat
+            </h2>
+            <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+                Entrez le numéro matricule de l'étudiant pour authentifier son certificat du Programme FUTUR
+            </p>
+        </div>
+
+        <!-- Search Section -->
+        <div class="max-w-2xl mx-auto mb-12">
+            <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-cyan/20">
+                <div class="flex flex-col md:flex-row gap-4">
+                    <div class="flex-1">
+                        <input 
+                            type="text" 
+                            id="searchInput" 
+                            placeholder="Entrez le numéro matricule (ex: FUT2024001)"
+                            class="w-full px-6 py-4 bg-white/10 border border-cyan/30 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-cyan focus:ring-2 focus:ring-cyan/20 transition-all"
+                        >
+                    </div>
+                    <button 
+                        id="searchBtn"
+                        class="bg-gradient-to-r from-cyan to-orange hover:from-cyan/80 hover:to-orange/80 text-navy font-semibold px-8 py-4 rounded-xl transition-all transform hover:scale-105"
+                    >
+                        <i class="fas fa-search mr-2"></i>Rechercher
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div id="resultsSection" class="hidden">
+            <div id="studentCard" class="max-w-4xl mx-auto bg-white/5 backdrop-blur-sm rounded-2xl border border-cyan/20 overflow-hidden">
+                <!-- Student card content will be inserted here -->
+            </div>
+        </div>
+
+        <!-- No Results Message -->
+        <div id="noResults" class="hidden text-center py-12">
+            <div class="max-w-md mx-auto">
+                <i class="fas fa-search text-6xl text-gray-600 mb-6"></i>
+                <h3 class="text-2xl font-semibold text-white mb-4">Aucun résultat trouvé</h3>
+                <p class="text-gray-300 mb-6">Le numéro matricule saisi ne correspond à aucun certificat dans notre base de données.</p>
+                <button onclick="clearSearch()" class="bg-orange hover:bg-orange/80 text-white px-6 py-3 rounded-lg font-medium transition-colors">
+                    Nouvelle recherche
+                </button>
+            </div>
+        </div>
+
+        <!-- Loading Animation -->
+        <div id="loading" class="hidden text-center py-12">
+            <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-cyan mb-4"></div>
+            <p class="text-cyan font-medium">Recherche en cours...</p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-navy border-t border-cyan/20 py-8 mt-20">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-gray-400">© 2025 Programme FUTUR. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+</body>
+</html>
