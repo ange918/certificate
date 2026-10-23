@@ -1,0 +1,139 @@
+// Mondoukbe Moncho — réservation de rendez-vous
+const OFFERS = [
+  { min: 15,  price: 20,  title: 'Échange express',    sub: 'Question ciblée',        tags: ['Visio', 'Avis rapide', 'Orientation'], c: ['#3b5a7a', '#1c2b3c'] },
+  { min: 30,  price: 35,  title: 'Échange découverte', sub: 'Premier tour du projet', tags: ['Visio', 'Diagnostic', 'Pistes'],       c: ['#7a4b3b', '#2c1a14'] },
+  { min: 45,  price: 50,  title: 'Échange approfondi', sub: 'Analyse détaillée',      tags: ['Visio', 'Stratégie', 'Conseils'],      c: ['#3f6b4f', '#16281d'] },
+  { min: 60,  price: 65,  title: 'Séance complète',    sub: 'Une heure dédiée',       tags: ['Tous modes', 'Plan d’action', 'Suivi'], c: ['#5a4a7a', '#201a2e'] },
+  { min: 90,  price: 90,  title: 'Atelier de projet',  sub: 'Travail en profondeur',  tags: ['Tous modes', 'Atelier', 'Livrable'],   c: ['#7a6a3b', '#2c2514'] },
+  { min: 120, price: 120, title: 'Session intensive',  sub: 'Deux heures, un cap',    tags: ['Tous modes', 'Feuille de route', 'Suivi'], c: ['#3b7a76', '#142b29'] }
+];
+const HOURS = { start: 9, end: 18 };           // créneaux 9h–18h, du lundi au vendredi
+const STEP = 15;                                // pas de réservation (minutes)
+const STORE = 'moncho_bookings';
+
+const $ = (s) => document.querySelector(s);
+const fmtDur = (m) => (m < 60 ? `${m} min` : m % 60 ? `${Math.floor(m / 60)} h ${m % 60}` : `${m / 60} h`);
+const fmtPrice = (p) => `${p} €`;
+const pad = (n) => String(n).padStart(2, '0');
+const toLabel = (min) => `${pad(Math.floor(min / 60))}:${pad(min % 60)}`;
+
+const load = () => { try { return JSON.parse(localStorage.getItem(STORE)) || []; } catch { return []; } };
+const save = (list) => { try { localStorage.setItem(STORE, JSON.stringify(list)); } catch {} };
+
+let mode = 'Visio';
+let pending = null;
+
+// --- Offers grid + duration select
+const durSel = $('#duration');
+OFFERS.forEach((o) => durSel.add(new Option(`${fmtDur(o.min)} — ${fmtPrice(o.price)}`, o.min)));
+$('#offers').innerHTML = OFFERS.map((o) => `
+  <button class="offer" data-min="${o.min}">
+    <div class="pic" style="background:linear-gradient(135deg,${o.c[0]},${o.c[1]})"><span>${o.min < 60 ? o.min : o.min / 60}</span><em>${o.min < 60 ? 'min' : 'h'}</em></div>
+    <div class="meta"><div><b>${o.title}</b><small>${o.sub}</small></div><span class="p">${fmtPrice(o.price)}</span></div>
+    <ul>${o.tags.map((t) => `<li>${t}</li>`).join('')}</ul>
+  </button>`).join('');
+
+document.querySelectorAll('.offer').forEach((el) => el.addEventListener('click', () => {
+  durSel.value = el.dataset.min;
+  update();
+  $('#reserver').scrollIntoView({ behavior: 'smooth', block: 'center' });
+}));
+
+// --- Date / time
+const dateInp = $('#date');
+const timeSel = $('#time');
+const today = new Date();
+const iso = (d) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+dateInp.min = iso(today);
+
+const current = () => OFFERS.find((o) => o.min === +durSel.value);
+
+function update() {
+  $('#price').textContent = fmtPrice(current().price);
+  const val = dateInp.value;
+  timeSel.innerHTML = '';
+  if (!val) { timeSel.add(new Option('Choisir une date', '')); return; }
+  const d = new Date(val + 'T00:00');
+  if ([0, 6].includes(d.getDay())) { timeSel.add(new Option('Week-end indisponible', '')); return; }
+
+  const dur = current().min;
+  const taken = load().filter((b) => b.date === val);
+  const now = iso(today) === val ? today.getHours() * 60 + today.getMinutes() + 30 : 0;
+  const slots = [];
+  for (let t = HOURS.start * 60; t + dur <= HOURS.end * 60; t += STEP) {
+    const free = t >= now && taken.every((b) => t + dur <= b.start || t >= b.start + b.min);
+    if (free) slots.push(t);
+  }
+  if (!slots.length) { timeSel.add(new Option('Aucun créneau libre', '')); return; }
+  timeSel.add(new Option('Choisir une heure', ''));
+  slots.forEach((t) => timeSel.add(new Option(`${toLabel(t)} – ${toLabel(t + dur)}`, t)));
+}
+durSel.addEventListener('change', update);
+dateInp.addEventListener('change', update);
+update();
+
+document.querySelectorAll('.chip').forEach((c) => c.addEventListener('click', () => {
+  document.querySelectorAll('.chip').forEach((x) => x.classList.remove('on'));
+  c.classList.add('on');
+  mode = c.dataset.mode;
+}));
+
+// --- Booking flow
+const modal = $('#modal');
+const longDate = (v) => new Date(v + 'T00:00').toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+
+$('#bookingForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  if (!dateInp.value || !timeSel.value) { (dateInp.value ? timeSel : dateInp).focus(); return; }
+  const o = current();
+  pending = { date: dateInp.value, start: +timeSel.value, min: o.min, price: o.price, mode };
+  $('#recap').innerHTML = `${fmtDur(o.min)} · <b>${fmtPrice(o.price)}</b><br>${longDate(pending.date)} à ${toLabel(pending.start)}<br>${mode}`;
+  $('#step1').hidden = false; $('#step2').hidden = true;
+  modal.hidden = false;
+  $('#name').focus();
+});
+
+$('#detailsForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const list = load();
+  if (list.some((b) => b.date === pending.date && pending.start < b.start + b.min && b.start < pending.start + pending.min)) {
+    alert('Ce créneau vient d’être réservé. Merci d’en choisir un autre.');
+    modal.hidden = true; update(); return;
+  }
+  list.push({ ...pending, name: $('#name').value.trim(), email: $('#email').value.trim(), msg: $('#msg').value.trim(), at: Date.now() });
+  save(list);
+  $('#done').innerHTML = `Merci ${$('#name').value.trim().split(' ')[0]} !<br>${longDate(pending.date)} à ${toLabel(pending.start)}<br>${fmtDur(pending.min)} · ${fmtPrice(pending.price)} · ${pending.mode}`;
+  $('#step1').hidden = true; $('#step2').hidden = false;
+  e.target.reset(); update();
+});
+
+const closeModal = () => { modal.hidden = true; };
+$('#close').addEventListener('click', closeModal);
+$('#ok').addEventListener('click', closeModal);
+modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+// --- Stat bars
+document.querySelectorAll('.bars').forEach((el) => {
+  let s = +el.dataset.seed * 97;
+  const rnd = () => (s = (s * 9301 + 49297) % 233280) / 233280;
+  const rising = el.dataset.seed === '2';
+  el.innerHTML = Array.from({ length: 10 }, (_, i) => `<i style="height:${rising ? 25 + i * 7 + rnd() * 8 : 30 + rnd() * 70}%"></i>`).join('');
+});
+
+// --- Testimonials slider
+const PEOPLE = [
+  { n: 'Claire Dubois', r: 'Directrice de festival', t: 'Une demi-heure a suffi pour clarifier notre programmation et débloquer un financement.', c: '#2f2f35' },
+  { n: 'Samuel Okoye', r: 'Artiste plasticien', t: 'Des conseils concrets et une vraie écoute. J’ai repris mon dossier de résidence avec confiance.', c: '#4a4a52' },
+  { n: 'Inès Bernard', r: 'Responsable d’association', t: 'La séance complète m’a donné un plan d’action clair pour toute l’année.', c: '#26262b' },
+  { n: 'Lucas Martin', r: 'Producteur', t: 'Rapide, précis, bienveillant. Exactement ce qu’il me fallait avant mon lancement.', c: '#3a3a40' }
+];
+let offset = 0;
+const slider = $('#slider');
+function renderPeople() {
+  slider.innerHTML = [0, 1, 2].map((i) => PEOPLE[(offset + i) % PEOPLE.length]).map((p) => `
+    <article class="person"><div class="face" style="--c:${p.c}"></div><h5>${p.n}</h5><small>${p.r}</small><p>${p.t}</p></article>`).join('');
+}
+$('#prev').addEventListener('click', () => { offset = (offset + PEOPLE.length - 1) % PEOPLE.length; renderPeople(); });
+$('#next').addEventListener('click', () => { offset = (offset + 1) % PEOPLE.length; renderPeople(); });
+renderPeople();

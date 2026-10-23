@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mondoukbe Moncho — Conseil culturel</title>
+  <meta name="description" content="Réservez un moment d'échange avec Mondoukbe Moncho, professionnel du domaine culturel : 15 minutes, 30 minutes ou plus.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="frame">
+
+  <!-- HERO -->
+  <section class="hero" id="accueil">
+    <nav class="nav">
+      <a href="#accueil" class="logo">MONDOUKBE<b>MONCHO</b></a>
+      <ul class="pill-nav">
+        <li><a href="#accueil" class="active">Accueil</a></li>
+        <li><a href="#a-propos">À propos</a></li>
+        <li><a href="#tarifs">Tarifs</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="nav-right">
+        <span class="lang"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg> Fr</span>
+        <a href="#reserver" class="btn btn-dark btn-sm">Réserver</a>
+      </div>
+    </nav>
+
+    <div class="hero-stage">
+      <h1 class="hero-small">Faites vivre<br>votre</h1>
+      <div class="hero-giant" aria-hidden="true">Culture</div>
+      <p class="hero-text">Artistes, institutions, associations ou porteurs de projets : échangeons en tête-à-tête sur votre vision culturelle et trouvons ensemble la meilleure voie pour la concrétiser.</p>
+      <div class="tower" aria-hidden="true"></div>
+
+      <div class="hero-bottom">
+        <div class="stats-pill">
+          <div><b>100%</b><small>Écoute</small></div>
+          <div><b>500+</b><small>Échanges</small></div>
+          <div><b>150+</b><small>Projets</small></div>
+          <div><b>15+</b><small>Années</small></div>
+        </div>
+        <a href="#reserver" class="play-card">
+          <span class="thumb"><span class="play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span></span>
+          <span>Une conversation<br>à la fois.</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTRO + BOOKING -->
+  <section class="section" id="a-propos">
+    <div class="head">
+      <h2>Votre projet culturel mérite<br>d'être entendu.</h2>
+      <p class="small">Chaque échange apporte un regard expert, une écoute attentive et des pistes concrètes pour votre parcours.</p>
+    </div>
+
+    <div class="search-card" id="reserver">
+      <h3>Trouvez votre créneau</h3>
+      <form id="bookingForm" class="fields" novalidate>
+        <label>Durée
+          <select id="duration"></select>
+        </label>
+        <label>Prix
+          <output id="price" class="field-out">—</output>
+        </label>
+        <label>Date
+          <input type="date" id="date" required>
+        </label>
+        <label>Heure
+          <select id="time" required><option value="">Choisir une date</option></select>
+        </label>
+        <div class="filter">
+          <span>Mode :</span>
+          <button type="button" class="chip on" data-mode="Visio">Visio</button>
+          <button type="button" class="chip" data-mode="Téléphone">Téléphone</button>
+          <button type="button" class="chip" data-mode="Sur place">Sur place</button>
+        </div>
+        <button type="submit" class="btn btn-dark">Réserver ce créneau</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- OFFERS -->
+  <section class="section" id="tarifs">
+    <div class="head">
+      <h2>Explorez mes<br>formules d'échange</h2>
+      <p class="small">Chaque formule offre un temps dédié, une écoute exclusive et des conseils concrets adaptés à votre projet.</p>
+    </div>
+    <div class="grid" id="offers"></div>
+  </section>
+
+  <!-- STATS -->
+  <section class="section">
+    <div class="head">
+      <h2>Découvrez ce que j'offre<br>et comment ça marche</h2>
+      <p class="small">Un accompagnement simple : vous réservez, nous échangeons, vous repartez avec des actions claires.</p>
+    </div>
+    <div class="stats">
+      <article class="stat"><small>Projets accompagnés</small><b>19%</b><div class="bars" data-seed="1"></div></article>
+      <article class="stat"><small>Échanges réalisés</small><b>820+</b><div class="bars" data-seed="2"></div></article>
+      <article class="stat"><small>Clients satisfaits</small><b>98%</b><div class="bars" data-seed="3"></div></article>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section">
+    <div class="row-head">
+      <h2>Ils m'ont consulté</h2>
+      <div class="arrows">
+        <button class="arrow" id="prev" aria-label="Précédent"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <button class="arrow" id="next" aria-label="Suivant"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M9 5l7 7-7 7"/></svg></button>
+      </div>
+    </div>
+    <div class="slider" id="slider"></div>
+  </section>
+
+  <!-- CTA + FOOTER -->
+  <section class="cta-wrap" id="contact">
+    <div class="cta-card">
+      <h2>Prêt à donner vie à votre<br>projet culturel ?</h2>
+      <p>Réservez un moment d'échange et avancez avec clarté sur vos idées et vos objectifs.</p>
+      <a href="#reserver" class="btn btn-dark btn-sm">Commencer</a>
+    </div>
+    <div class="canopy"></div>
+
+    <footer class="footer">
+      <div class="cols">
+        <div><h4>Liens rapides</h4><a href="#accueil">Accueil</a><a href="#a-propos">À propos</a><a href="#tarifs">Tarifs</a><a href="#reserver">Réserver</a><a href="#contact">Contact</a></div>
+        <div><h4>Société</h4><a href="#a-propos">Mon approche</a><a href="#tarifs">Formules</a><span class="gap"></span><a href="#">Conditions générales</a><a href="#">Confidentialité</a></div>
+        <div><h4>Support</h4><a href="#">FAQ</a><a href="#">Centre d'aide</a><a href="#contact">Nous contacter</a></div>
+        <div><h4>Suivre</h4><a href="#">Instagram</a><a href="#">LinkedIn</a>
+          <form class="news" onsubmit="return false"><span class="dot"></span><input type="email" placeholder="Votre e-mail" aria-label="E-mail"></form>
+        </div>
+      </div>
+      <div class="watermark" aria-hidden="true">MONCHO</div>
+    </footer>
+  </section>
+</div>
+
+<!-- BOOKING MODAL -->
+<div class="modal" id="modal" hidden>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+    <button class="close" id="close" aria-label="Fermer">×</button>
+    <div id="step1">
+      <h3 id="mTitle">Confirmer votre rendez-vous</h3>
+      <p class="recap" id="recap"></p>
+      <form id="detailsForm">
+        <input id="name" placeholder="Nom complet" required>
+        <input id="email" type="email" placeholder="E-mail" required>
+        <textarea id="msg" rows="3" placeholder="De quoi souhaitez-vous discuter ? (facultatif)"></textarea>
+        <button class="btn btn-dark" type="submit">Valider la réservation</button>
+      </form>
+    </div>
+    <div id="step2" hidden>
+      <div class="ok"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M5 12l5 5 9-10"/></svg></div>
+      <h3>Rendez-vous réservé</h3>
+      <p class="recap" id="done"></p>
+      <button class="btn btn-dark" id="ok">Fermer</button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
