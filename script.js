@@ -131,9 +131,81 @@ const PEOPLE = [
 let offset = 0;
 const slider = $('#slider');
 function renderPeople() {
+  slider.classList.remove('swap'); void slider.offsetWidth; if (renderPeople.ran) slider.classList.add('swap');
+  renderPeople.ran = true;
   slider.innerHTML = [0, 1, 2].map((i) => PEOPLE[(offset + i) % PEOPLE.length]).map((p) => `
     <article class="person"><div class="face" style="--c:${p.c}"></div><h5>${p.n}</h5><small>${p.r}</small><p>${p.t}</p></article>`).join('');
 }
 $('#prev').addEventListener('click', () => { offset = (offset + PEOPLE.length - 1) % PEOPLE.length; renderPeople(); });
 $('#next').addEventListener('click', () => { offset = (offset + 1) % PEOPLE.length; renderPeople(); });
 renderPeople();
+
+// ===== Animations =====
+(() => {
+  const root = document.documentElement;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  root.classList.add('js');
+
+  // Smooth inertial scroll (Lenis)
+  let lenis = null;
+  if (!reduce && window.Lenis) {
+    lenis = new Lenis({ lerp: 0.075, wheelMultiplier: 0.9, smoothWheel: true });
+    const raf = (t) => { lenis.raf(t); requestAnimationFrame(raf); };
+    requestAnimationFrame(raf);
+    document.querySelectorAll('a[href^="#"]').forEach((a) => a.addEventListener('click', (e) => {
+      const id = a.getAttribute('href');
+      const el = id.length > 1 && document.querySelector(id);
+      if (el) { e.preventDefault(); lenis.scrollTo(el, { offset: -40, duration: 1.6 }); }
+    }));
+  }
+
+  // Split the giant hero word into letters
+  const giant = document.querySelector('.hero-giant');
+  const word = giant.textContent.trim();
+  giant.setAttribute('aria-label', word);
+  giant.innerHTML = [...word].map((c, i) => `<span style="--i:${i}">${c}</span>`).join('');
+  document.querySelectorAll('.pill-nav li').forEach((li, i) => li.style.setProperty('--i', i));
+  document.querySelectorAll('.bars').forEach((b) => b.querySelectorAll('i').forEach((el, i) => el.style.setProperty('--i', i)));
+
+  // Hero entrance once fonts are ready
+  const start = () => requestAnimationFrame(() => requestAnimationFrame(() => document.querySelector('.hero').classList.add('loaded')));
+  (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(start);
+
+  // Scroll reveals, staggered inside each group
+  const groups = [
+    ['.head h2', '.head .small'],
+    ['.search-card'],
+    ['#offers .offer'],
+    ['.about-photo', '.about-body > *'],
+    ['.stats .stat'],
+    ['.why .why-card'],
+    ['.row-head'],
+    ['#slider .person'],
+    ['.cta-card > *'],
+    ['.cols > div']
+  ];
+  const items = [];
+  groups.forEach((sel) => sel.forEach((s) => document.querySelectorAll(s).forEach((el) => items.push(el))));
+  const seenParents = new Map();
+  items.forEach((el) => {
+    el.classList.add('rv');
+    const key = el.parentElement;
+    const n = seenParents.get(key) || 0;
+    seenParents.set(key, n + 1);
+    el.style.setProperty('--d', `${Math.min(n, 5) * 0.12}s`);
+  });
+  const io = new IntersectionObserver((entries) => entries.forEach((en) => {
+    if (!en.isIntersecting) return;
+    en.target.classList.add('in');
+    io.unobserve(en.target);
+    setTimeout(() => en.target.classList.add('done'), 2000);
+  }), { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+  items.forEach((el) => io.observe(el));
+  const wm = document.querySelector('.watermark');
+  io.observe(wm);
+
+  // Parallax on the hero (driven by scroll position)
+  const set = (y) => document.querySelector('.hero-stage').style.setProperty('--p', Math.min(y, 900));
+  if (lenis) lenis.on('scroll', ({ scroll }) => set(scroll));
+  else addEventListener('scroll', () => set(scrollY), { passive: true });
+})();
