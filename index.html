@@ -1,128 +1,210 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FUTUR Certify - Authentification de Certificats</title>
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
-    <!-- Custom Styles -->
-    <link rel="stylesheet" href="styles.css">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'navy': '#0b1d3a',
-                        'cyan': '#00ffff',
-                        'orange': '#ff7f00'
-                    },
-                    fontFamily: {
-                        'montserrat': ['Montserrat', 'sans-serif']
-                    }
-                }
-            }
-        }
-    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mondoukbe Moncho — Conseil culturel</title>
+  <meta name="description" content="Réservez un moment d'échange avec Mondoukbe Moncho, professionnel du domaine culturel : 15 minutes, 30 minutes ou plus.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body class="bg-navy min-h-screen font-montserrat">
-    <!-- Header -->
-    <header class="bg-navy border-b border-cyan/20 py-6">
-        <div class="container mx-auto px-4">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-3">
-                    <div class="w-12 h-12 bg-gradient-to-r from-cyan to-orange rounded-lg flex items-center justify-center">
-                        <i class="fas fa-certificate text-navy text-xl"></i>
-                    </div>
-                    <div>
-                        <h1 class="text-2xl font-bold text-white">FUTUR Certify</h1>
-                        <p class="text-cyan text-sm">Authentification de Certificats</p>
-                    </div>
-                </div>
-                <a href="admin.html" class="bg-orange hover:bg-orange/80 text-white px-6 py-2 rounded-lg font-medium transition-colors">
-                    <i class="fas fa-user-shield mr-2"></i>Admin
-                </a>
-            </div>
-        </div>
-    </header>
+<body>
+<div class="frame">
 
-    <!-- Main Content -->
-    <main class="container mx-auto px-4 py-12">
-        <!-- Hero Section -->
-        <div class="text-center mb-12">
-            <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">
-                Vérifiez l'authenticité de votre certificat
-            </h2>
-            <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-                Entrez le numéro matricule de l'étudiant pour authentifier son certificat du Programme FUTUR
-            </p>
-        </div>
+  <!-- HERO -->
+  <section class="hero" id="accueil">
+    <nav class="nav">
+      <a href="#accueil" class="logo">MONDOUKBE<b>MONCHO</b></a>
+      <ul class="pill-nav">
+        <li><a href="#accueil" class="active">Accueil</a></li>
+        <li><a href="#a-propos">À propos</a></li>
+        <li><a href="#tarifs">Tarifs</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="nav-right">
+        <span class="lang"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg> Fr</span>
+        <a href="#reserver" class="btn btn-dark btn-sm">Réserver</a>
+      </div>
+    </nav>
 
-        <!-- Search Section -->
-        <div class="max-w-2xl mx-auto mb-12">
-            <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-cyan/20">
-                <div class="flex flex-col md:flex-row gap-4">
-                    <div class="flex-1">
-                        <input 
-                            type="text" 
-                            id="searchInput" 
-                            placeholder="Entrez le numéro matricule (ex: FUT2024001)"
-                            class="w-full px-6 py-4 bg-white/10 border border-cyan/30 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-cyan focus:ring-2 focus:ring-cyan/20 transition-all"
-                        >
-                    </div>
-                    <button 
-                        id="searchBtn"
-                        class="bg-gradient-to-r from-cyan to-orange hover:from-cyan/80 hover:to-orange/80 text-navy font-semibold px-8 py-4 rounded-xl transition-all transform hover:scale-105"
-                    >
-                        <i class="fas fa-search mr-2"></i>Rechercher
-                    </button>
-                </div>
-            </div>
-        </div>
+    <div class="hero-stage">
+      <h1 class="hero-small">Faites vivre<br>votre</h1>
+      <div class="hero-giant" aria-hidden="true">Culture</div>
+      <p class="hero-text">Artistes, institutions, associations ou porteurs de projets : échangeons en tête-à-tête sur votre vision culturelle et trouvons ensemble la meilleure voie pour la concrétiser.</p>
+      <div class="tower" aria-hidden="true"></div>
 
-        <!-- Results Section -->
-        <div id="resultsSection" class="hidden">
-            <div id="studentCard" class="max-w-4xl mx-auto bg-white/5 backdrop-blur-sm rounded-2xl border border-cyan/20 overflow-hidden">
-                <!-- Student card content will be inserted here -->
-            </div>
+      <div class="hero-bottom">
+        <div class="stats-pill">
+          <div><b>100%</b><small>Écoute</small></div>
+          <div><b>500+</b><small>Échanges</small></div>
+          <div><b>150+</b><small>Projets</small></div>
+          <div><b>15+</b><small>Années</small></div>
         </div>
+        <a href="#reserver" class="play-card">
+          <span class="thumb"><span class="play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span></span>
+          <span>Une conversation<br>à la fois.</span>
+        </a>
+      </div>
+    </div>
+  </section>
 
-        <!-- No Results Message -->
-        <div id="noResults" class="hidden text-center py-12">
-            <div class="max-w-md mx-auto">
-                <i class="fas fa-search text-6xl text-gray-600 mb-6"></i>
-                <h3 class="text-2xl font-semibold text-white mb-4">Aucun résultat trouvé</h3>
-                <p class="text-gray-300 mb-6">Le numéro matricule saisi ne correspond à aucun certificat dans notre base de données.</p>
-                <button onclick="clearSearch()" class="bg-orange hover:bg-orange/80 text-white px-6 py-3 rounded-lg font-medium transition-colors">
-                    Nouvelle recherche
-                </button>
-            </div>
-        </div>
+  <!-- INTRO + BOOKING -->
+  <section class="section" id="intro">
+    <div class="head">
+      <h2>Votre projet culturel mérite<br>d'être entendu.</h2>
+      <p class="small">Chaque échange apporte un regard expert, une écoute attentive et des pistes concrètes pour votre parcours.</p>
+    </div>
 
-        <!-- Loading Animation -->
-        <div id="loading" class="hidden text-center py-12">
-            <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-cyan mb-4"></div>
-            <p class="text-cyan font-medium">Recherche en cours...</p>
+    <div class="search-card" id="reserver">
+      <h3>Trouvez votre créneau</h3>
+      <form id="bookingForm" class="fields" novalidate>
+        <label>Durée
+          <select id="duration"></select>
+        </label>
+        <label>Prix
+          <output id="price" class="field-out">—</output>
+        </label>
+        <label>Date
+          <input type="date" id="date" required>
+        </label>
+        <label>Heure
+          <select id="time" required><option value="">Choisir une date</option></select>
+        </label>
+        <div class="filter">
+          <span>Mode :</span>
+          <button type="button" class="chip on" data-mode="Visio">Visio</button>
+          <button type="button" class="chip" data-mode="Téléphone">Téléphone</button>
+          <button type="button" class="chip" data-mode="Sur place">Sur place</button>
         </div>
-    </main>
+        <button type="submit" class="btn btn-dark">Réserver ce créneau</button>
+      </form>
+    </div>
+  </section>
 
-    <!-- Footer -->
-    <footer class="bg-navy border-t border-cyan/20 py-8 mt-20">
-        <div class="container mx-auto px-4 text-center">
-            <p class="text-gray-400">© 2025 Programme FUTUR. Tous droits réservés.</p>
+  <!-- OFFERS -->
+  <section class="section" id="tarifs">
+    <div class="head">
+      <h2>Explorez mes<br>formules d'échange</h2>
+      <p class="small">Chaque formule offre un temps dédié, une écoute exclusive et des conseils concrets adaptés à votre projet.</p>
+    </div>
+    <div class="grid" id="offers"></div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section" id="a-propos">
+    <div class="head">
+      <h2>À propos de<br>Mondoukbe Moncho</h2>
+      <p class="small">Un professionnel du domaine culturel, à l'écoute des artistes, des structures et des porteurs de projets.</p>
+    </div>
+    <div class="about">
+      <div class="about-photo">
+        <div class="portrait" aria-hidden="true"></div>
+        <span class="badge">Professionnel du secteur culturel</span>
+      </div>
+      <div class="about-body">
+        <p class="lead">Je mets mon expérience du monde culturel au service de celles et ceux qui veulent faire exister un projet, une œuvre ou une structure.</p>
+        <p>Au fil des années, j'ai accompagné des artistes, des associations et des institutions dans leurs choix de programmation, de production, de financement et de développement. Mon approche : écouter d'abord, puis proposer des pistes claires et réalistes.</p>
+        <ul class="tags">
+          <li>Arts vivants</li><li>Patrimoine</li><li>Médiation culturelle</li><li>Production</li><li>Financement</li><li>Stratégie</li>
+        </ul>
+        <div class="about-stats">
+          <div><b>15+</b><small>Années d'expérience</small></div>
+          <div><b>150+</b><small>Projets accompagnés</small></div>
+          <div><b>500+</b><small>Échanges réalisés</small></div>
         </div>
+        <a href="#reserver" class="btn btn-dark btn-sm">Prendre rendez-vous</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="section">
+    <div class="head">
+      <h2>Découvrez ce que j'offre<br>et comment ça marche</h2>
+      <p class="small">Un accompagnement simple : vous réservez, nous échangeons, vous repartez avec des actions claires.</p>
+    </div>
+    <div class="stats">
+      <article class="stat"><small>Projets accompagnés</small><b>19%</b><div class="bars" data-seed="1"></div></article>
+      <article class="stat"><small>Échanges réalisés</small><b>820+</b><div class="bars" data-seed="2"></div></article>
+      <article class="stat"><small>Clients satisfaits</small><b>98%</b><div class="bars" data-seed="3"></div></article>
+    </div>
+  </section>
+
+  <!-- WHY -->
+  <section class="section" id="pourquoi">
+    <div class="head">
+      <h2>Pourquoi discuter<br>avec moi ?</h2>
+      <p class="small">Quatre raisons de réserver un moment d'échange avant de vous lancer ou de poursuivre votre projet.</p>
+    </div>
+    <div class="why">
+      <article class="why-card"><span class="num">01</span><h3>Un regard d'expert</h3><p>Une lecture lucide de votre projet par quelqu'un qui connaît le terrain culturel de l'intérieur.</p></article>
+      <article class="why-card"><span class="num">02</span><h3>Un temps qui vous est dédié</h3><p>De 15 minutes à 2 heures : vous choisissez la durée qui correspond à votre besoin, sans engagement.</p></article>
+      <article class="why-card"><span class="num">03</span><h3>Des conseils concrets</h3><p>Vous repartez avec des pistes claires et des actions à mener, pas seulement de bonnes intentions.</p></article>
+      <article class="why-card"><span class="num">04</span><h3>Un tarif clair</h3><p>Le prix est affiché avant la réservation, selon la durée. Aucune surprise, aucun abonnement.</p></article>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section">
+    <div class="row-head">
+      <h2>Ils m'ont consulté</h2>
+      <div class="arrows">
+        <button class="arrow" id="prev" aria-label="Précédent"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <button class="arrow" id="next" aria-label="Suivant"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M9 5l7 7-7 7"/></svg></button>
+      </div>
+    </div>
+    <div class="slider" id="slider"></div>
+  </section>
+
+  <!-- CTA + FOOTER -->
+  <section class="cta-wrap" id="contact">
+    <div class="cta-card">
+      <h2>Prêt à donner vie à votre<br>projet culturel ?</h2>
+      <p>Réservez un moment d'échange et avancez avec clarté sur vos idées et vos objectifs.</p>
+      <a href="#reserver" class="btn btn-dark btn-sm">Commencer</a>
+    </div>
+    <div class="canopy"></div>
+
+    <footer class="footer">
+      <div class="cols">
+        <div><h4>Liens rapides</h4><a href="#accueil">Accueil</a><a href="#a-propos">À propos</a><a href="#tarifs">Tarifs</a><a href="#reserver">Réserver</a><a href="#contact">Contact</a></div>
+        <div><h4>Société</h4><a href="#a-propos">Mon approche</a><a href="#tarifs">Formules</a><span class="gap"></span><a href="#">Conditions générales</a><a href="#">Confidentialité</a></div>
+        <div><h4>Support</h4><a href="#">FAQ</a><a href="#">Centre d'aide</a><a href="#contact">Nous contacter</a></div>
+        <div><h4>Suivre</h4><a href="#">Instagram</a><a href="#">LinkedIn</a>
+          <form class="news" onsubmit="return false"><span class="dot"></span><input type="email" placeholder="Votre e-mail" aria-label="E-mail"></form>
+        </div>
+      </div>
+      <div class="watermark" aria-hidden="true">MONCHO</div>
     </footer>
+  </section>
+</div>
 
-    <!-- Scripts -->
-    <script src="script.js"></script>
+<!-- BOOKING MODAL -->
+<div class="modal" id="modal" hidden>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+    <button class="close" id="close" aria-label="Fermer">×</button>
+    <div id="step1">
+      <h3 id="mTitle">Confirmer votre rendez-vous</h3>
+      <p class="recap" id="recap"></p>
+      <form id="detailsForm">
+        <input id="name" placeholder="Nom complet" required>
+        <input id="email" type="email" placeholder="E-mail" required>
+        <textarea id="msg" rows="3" placeholder="De quoi souhaitez-vous discuter ? (facultatif)"></textarea>
+        <button class="btn btn-dark" type="submit">Valider la réservation</button>
+      </form>
+    </div>
+    <div id="step2" hidden>
+      <div class="ok"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M5 12l5 5 9-10"/></svg></div>
+      <h3>Rendez-vous réservé</h3>
+      <p class="recap" id="done"></p>
+      <button class="btn btn-dark" id="ok">Fermer</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+<script src="script.js"></script>
 </body>
 </html>

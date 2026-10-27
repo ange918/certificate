@@ -1,322 +1,211 @@
-// FUTUR Certify - Main Script
-class FuturCertify {
-    constructor() {
-        this.students = this.loadStudents();
-        this.initializeEventListeners();
-        this.initializeSampleData();
-    }
+// Mondoukbe Moncho — réservation de rendez-vous
+const OFFERS = [
+  { min: 15,  price: 20,  title: 'Échange express',    sub: 'Question ciblée',        tags: ['Visio', 'Avis rapide', 'Orientation'], c: ['#3b5a7a', '#1c2b3c'] },
+  { min: 30,  price: 35,  title: 'Échange découverte', sub: 'Premier tour du projet', tags: ['Visio', 'Diagnostic', 'Pistes'],       c: ['#7a4b3b', '#2c1a14'] },
+  { min: 45,  price: 50,  title: 'Échange approfondi', sub: 'Analyse détaillée',      tags: ['Visio', 'Stratégie', 'Conseils'],      c: ['#3f6b4f', '#16281d'] },
+  { min: 60,  price: 65,  title: 'Séance complète',    sub: 'Une heure dédiée',       tags: ['Tous modes', 'Plan d’action', 'Suivi'], c: ['#5a4a7a', '#201a2e'] },
+  { min: 90,  price: 90,  title: 'Atelier de projet',  sub: 'Travail en profondeur',  tags: ['Tous modes', 'Atelier', 'Livrable'],   c: ['#7a6a3b', '#2c2514'] },
+  { min: 120, price: 120, title: 'Session intensive',  sub: 'Deux heures, un cap',    tags: ['Tous modes', 'Feuille de route', 'Suivi'], c: ['#3b7a76', '#142b29'] }
+];
+const HOURS = { start: 9, end: 18 };           // créneaux 9h–18h, du lundi au vendredi
+const STEP = 15;                                // pas de réservation (minutes)
+const STORE = 'moncho_bookings';
 
-    // Load students from localStorage
-    loadStudents() {
-        const stored = localStorage.getItem('futur_students');
-        return stored ? JSON.parse(stored) : [];
-    }
+const $ = (s) => document.querySelector(s);
+const fmtDur = (m) => (m < 60 ? `${m} min` : m % 60 ? `${Math.floor(m / 60)} h ${m % 60}` : `${m / 60} h`);
+const fmtPrice = (p) => `${p} €`;
+const pad = (n) => String(n).padStart(2, '0');
+const toLabel = (min) => `${pad(Math.floor(min / 60))}:${pad(min % 60)}`;
 
-    // Save students to localStorage
-    saveStudents() {
-        localStorage.setItem('futur_students', JSON.stringify(this.students));
-    }
+const load = () => { try { return JSON.parse(localStorage.getItem(STORE)) || []; } catch { return []; } };
+const save = (list) => { try { localStorage.setItem(STORE, JSON.stringify(list)); } catch {} };
 
-    // Initialize sample data if empty
-    initializeSampleData() {
-        if (this.students.length === 0) {
-            // Only initialize with empty array, no sample data
-            this.students = [];
-            this.saveStudents();
-        }
-    }
+let mode = 'Visio';
+let pending = null;
 
-    // Initialize event listeners
-    initializeEventListeners() {
-        const searchBtn = document.getElementById('searchBtn');
-        const searchInput = document.getElementById('searchInput');
+// --- Offers grid + duration select
+const durSel = $('#duration');
+OFFERS.forEach((o) => durSel.add(new Option(`${fmtDur(o.min)} — ${fmtPrice(o.price)}`, o.min)));
+$('#offers').innerHTML = OFFERS.map((o) => `
+  <button class="offer" data-min="${o.min}">
+    <div class="pic" style="background:linear-gradient(135deg,${o.c[0]},${o.c[1]})"><span>${o.min < 60 ? o.min : o.min / 60}</span><em>${o.min < 60 ? 'min' : 'h'}</em></div>
+    <div class="meta"><div><b>${o.title}</b><small>${o.sub}</small></div><span class="p">${fmtPrice(o.price)}</span></div>
+    <ul>${o.tags.map((t) => `<li>${t}</li>`).join('')}</ul>
+  </button>`).join('');
 
-        if (searchBtn) {
-            searchBtn.addEventListener('click', () => this.searchStudent());
-        }
+document.querySelectorAll('.offer').forEach((el) => el.addEventListener('click', () => {
+  durSel.value = el.dataset.min;
+  update();
+  $('#reserver').scrollIntoView({ behavior: 'smooth', block: 'center' });
+}));
 
-        if (searchInput) {
-            searchInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    this.searchStudent();
-                }
-            });
+// --- Date / time
+const dateInp = $('#date');
+const timeSel = $('#time');
+const today = new Date();
+const iso = (d) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+dateInp.min = iso(today);
 
-            // Auto-format matricule input
-            searchInput.addEventListener('input', (e) => {
-                let value = e.target.value.toUpperCase();
-                // Remove any non-alphanumeric characters except spaces
-                value = value.replace(/[^A-Z0-9]/g, '');
-                e.target.value = value;
-            });
-        }
-    }
+const current = () => OFFERS.find((o) => o.min === +durSel.value);
 
-    // Search for student by matricule
-    async searchStudent() {
-        const searchInput = document.getElementById('searchInput');
-        const matricule = searchInput.value.trim();
+function update() {
+  $('#price').textContent = fmtPrice(current().price);
+  const val = dateInp.value;
+  timeSel.innerHTML = '';
+  if (!val) { timeSel.add(new Option('Choisir une date', '')); return; }
+  const d = new Date(val + 'T00:00');
+  if ([0, 6].includes(d.getDay())) { timeSel.add(new Option('Week-end indisponible', '')); return; }
 
-        if (!matricule) {
-            this.showNotification('Veuillez entrer un numéro matricule', 'error');
-            return;
-        }
-
-        this.showLoading(true);
-        
-        // Simulate search delay for better UX
-        await new Promise(resolve => setTimeout(resolve, 1000));
-
-        const student = this.students.find(s => 
-            s.matricule.toLowerCase() === matricule.toLowerCase()
-        );
-
-        this.showLoading(false);
-
-        if (student) {
-            this.displayStudentCard(student);
-        } else {
-            this.showNoResults();
-        }
-    }
-
-    // Display student card
-    displayStudentCard(student) {
-        const resultsSection = document.getElementById('resultsSection');
-        const studentCard = document.getElementById('studentCard');
-        const noResults = document.getElementById('noResults');
-
-        // Hide no results section
-        noResults.classList.add('hidden');
-
-        // Create student card HTML
-        const cardHTML = `
-            <div class="student-card fade-in">
-                <div class="flex flex-col md:flex-row">
-                    <!-- Photo Section -->
-                    <div class="md:w-1/3 p-8 flex flex-col items-center justify-center bg-gradient-to-br from-cyan/10 to-orange/10">
-                        <div class="relative mb-6">
-                            <img 
-                                src="${student.photo || 'https://via.placeholder.com/150x150/0b1d3a/00ffff?text=' + student.prenom.charAt(0) + student.nom.charAt(0)}" 
-                                alt="${student.prenom} ${student.nom}"
-                                class="profile-picture"
-                                onerror="this.src='https://via.placeholder.com/150x150/0b1d3a/00ffff?text=${student.prenom.charAt(0)}${student.nom.charAt(0)}'"
-                            >
-                            <div class="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
-                                <i class="fas fa-check text-white text-sm"></i>
-                            </div>
-                        </div>
-                        <div class="text-center">
-                            <div class="inline-flex items-center px-4 py-2 bg-green-600/20 border border-green-600/30 rounded-full text-green-400 text-sm font-medium mb-4">
-                                <i class="fas fa-certificate mr-2"></i>
-                                Certificat Vérifié
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Info Section -->
-                    <div class="md:w-2/3 p-8">
-                        <div class="mb-6">
-                            <h2 class="text-3xl font-bold text-white mb-2">
-                                ${student.prenom} ${student.nom}
-                            </h2>
-                            <div class="flex items-center space-x-4 text-cyan">
-                                <span class="flex items-center">
-                                    <i class="fas fa-id-card mr-2"></i>
-                                    ${student.matricule}
-                                </span>
-                                <span class="flex items-center">
-                                    <i class="fas fa-calendar mr-2"></i>
-                                    ${new Date().getFullYear()}
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="mb-6">
-                            <h3 class="text-lg font-semibold text-white mb-3 flex items-center">
-                                <i class="fas fa-graduation-cap text-orange mr-2"></i>
-                                Filières Certifiées
-                            </h3>
-                            <div class="flex flex-wrap gap-2">
-                                ${student.filieres.map(filiere => `
-                                    <span class="badge">${filiere}</span>
-                                `).join('')}
-                            </div>
-                        </div>
-
-                        <div class="border-t border-cyan/20 pt-6">
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                                <div class="flex items-center text-gray-300">
-                                    <i class="fas fa-building text-cyan mr-3"></i>
-                                    <span>Programme FUTUR</span>
-                                </div>
-                                <div class="flex items-center text-gray-300">
-                                    <i class="fas fa-award text-orange mr-3"></i>
-                                    <span>Certification Officielle</span>
-                                </div>
-                                <div class="flex items-center text-gray-300">
-                                    <i class="fas fa-shield-alt text-cyan mr-3"></i>
-                                    <span>Authentifié</span>
-                                </div>
-                                <div class="flex items-center text-gray-300">
-                                    <i class="fas fa-calendar-check text-orange mr-3"></i>
-                                    <span>Valide ${new Date().getFullYear()}</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="mt-8 flex flex-col sm:flex-row gap-4">
-                            <button onclick="window.print()" class="btn-secondary flex-1">
-                                <i class="fas fa-print mr-2"></i>
-                                Imprimer le Certificat
-                            </button>
-                            <button onclick="clearSearch()" class="btn-primary flex-1">
-                                <i class="fas fa-search mr-2"></i>
-                                Nouvelle Recherche
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-
-        studentCard.innerHTML = cardHTML;
-        resultsSection.classList.remove('hidden');
-
-        // Smooth scroll to results
-        resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-
-    // Show no results message
-    showNoResults() {
-        const resultsSection = document.getElementById('resultsSection');
-        const noResults = document.getElementById('noResults');
-
-        resultsSection.classList.add('hidden');
-        noResults.classList.remove('hidden');
-
-        // Smooth scroll to no results
-        noResults.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-
-    // Show/hide loading animation
-    showLoading(show) {
-        const loading = document.getElementById('loading');
-        const resultsSection = document.getElementById('resultsSection');
-        const noResults = document.getElementById('noResults');
-
-        if (show) {
-            loading.classList.remove('hidden');
-            resultsSection.classList.add('hidden');
-            noResults.classList.add('hidden');
-        } else {
-            loading.classList.add('hidden');
-        }
-    }
-
-    // Show notification
-    showNotification(message, type = 'info') {
-        // Remove existing notifications
-        const existingNotifications = document.querySelectorAll('.notification');
-        existingNotifications.forEach(notification => notification.remove());
-
-        // Create new notification
-        const notification = document.createElement('div');
-        notification.className = `notification ${type}`;
-        
-        const icon = type === 'success' ? 'check-circle' : 
-                    type === 'error' ? 'exclamation-circle' : 
-                    'info-circle';
-
-        notification.innerHTML = `
-            <i class="fas fa-${icon} mr-2"></i>
-            ${message}
-        `;
-
-        document.body.appendChild(notification);
-
-        // Auto remove after 4 seconds
-        setTimeout(() => {
-            if (notification.parentNode) {
-                notification.remove();
-            }
-        }, 4000);
-    }
+  const dur = current().min;
+  const taken = load().filter((b) => b.date === val);
+  const now = iso(today) === val ? today.getHours() * 60 + today.getMinutes() + 30 : 0;
+  const slots = [];
+  for (let t = HOURS.start * 60; t + dur <= HOURS.end * 60; t += STEP) {
+    const free = t >= now && taken.every((b) => t + dur <= b.start || t >= b.start + b.min);
+    if (free) slots.push(t);
+  }
+  if (!slots.length) { timeSel.add(new Option('Aucun créneau libre', '')); return; }
+  timeSel.add(new Option('Choisir une heure', ''));
+  slots.forEach((t) => timeSel.add(new Option(`${toLabel(t)} – ${toLabel(t + dur)}`, t)));
 }
+durSel.addEventListener('change', update);
+dateInp.addEventListener('change', update);
+update();
 
-// Clear search function (global)
-function clearSearch() {
-    const searchInput = document.getElementById('searchInput');
-    const resultsSection = document.getElementById('resultsSection');
-    const noResults = document.getElementById('noResults');
+document.querySelectorAll('.chip').forEach((c) => c.addEventListener('click', () => {
+  document.querySelectorAll('.chip').forEach((x) => x.classList.remove('on'));
+  c.classList.add('on');
+  mode = c.dataset.mode;
+}));
 
-    if (searchInput) {
-        searchInput.value = '';
-        searchInput.focus();
-    }
+// --- Booking flow
+const modal = $('#modal');
+const longDate = (v) => new Date(v + 'T00:00').toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 
-    if (resultsSection) {
-        resultsSection.classList.add('hidden');
-    }
-
-    if (noResults) {
-        noResults.classList.add('hidden');
-    }
-
-    // Smooth scroll to search section
-    const searchSection = searchInput?.closest('.max-w-2xl');
-    if (searchSection) {
-        searchSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-}
-
-// Initialize the application when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    new FuturCertify();
+$('#bookingForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  if (!dateInp.value || !timeSel.value) { (dateInp.value ? timeSel : dateInp).focus(); return; }
+  const o = current();
+  pending = { date: dateInp.value, start: +timeSel.value, min: o.min, price: o.price, mode };
+  $('#recap').innerHTML = `${fmtDur(o.min)} · <b>${fmtPrice(o.price)}</b><br>${longDate(pending.date)} à ${toLabel(pending.start)}<br>${mode}`;
+  $('#step1').hidden = false; $('#step2').hidden = true;
+  modal.hidden = false;
+  $('#name').focus();
 });
 
-// Print styles for certificate
-const printStyles = `
-    @media print {
-        body * {
-            visibility: hidden;
-        }
-        
-        #studentCard, #studentCard * {
-            visibility: visible;
-        }
-        
-        #studentCard {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            background: white !important;
-            color: black !important;
-        }
-        
-        .student-card {
-            border: 2px solid #0b1d3a !important;
-            background: white !important;
-        }
-        
-        .text-white {
-            color: black !important;
-        }
-        
-        .text-cyan, .text-orange {
-            color: #0b1d3a !important;
-        }
-        
-        .badge {
-            background: #f3f4f6 !important;
-            color: #374151 !important;
-            border: 1px solid #d1d5db !important;
-        }
-    }
-`;
+$('#detailsForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const list = load();
+  if (list.some((b) => b.date === pending.date && pending.start < b.start + b.min && b.start < pending.start + pending.min)) {
+    alert('Ce créneau vient d’être réservé. Merci d’en choisir un autre.');
+    modal.hidden = true; update(); return;
+  }
+  list.push({ ...pending, name: $('#name').value.trim(), email: $('#email').value.trim(), msg: $('#msg').value.trim(), at: Date.now() });
+  save(list);
+  $('#done').innerHTML = `Merci ${$('#name').value.trim().split(' ')[0]} !<br>${longDate(pending.date)} à ${toLabel(pending.start)}<br>${fmtDur(pending.min)} · ${fmtPrice(pending.price)} · ${pending.mode}`;
+  $('#step1').hidden = true; $('#step2').hidden = false;
+  e.target.reset(); update();
+});
 
-// Add print styles to head
-const styleElement = document.createElement('style');
-styleElement.textContent = printStyles;
-document.head.appendChild(styleElement);
+const closeModal = () => { modal.hidden = true; };
+$('#close').addEventListener('click', closeModal);
+$('#ok').addEventListener('click', closeModal);
+modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+// --- Stat bars
+document.querySelectorAll('.bars').forEach((el) => {
+  let s = +el.dataset.seed * 97;
+  const rnd = () => (s = (s * 9301 + 49297) % 233280) / 233280;
+  const rising = el.dataset.seed === '2';
+  el.innerHTML = Array.from({ length: 10 }, (_, i) => `<i style="height:${rising ? 25 + i * 7 + rnd() * 8 : 30 + rnd() * 70}%"></i>`).join('');
+});
+
+// --- Testimonials slider
+const PEOPLE = [
+  { n: 'Claire Dubois', r: 'Directrice de festival', t: 'Une demi-heure a suffi pour clarifier notre programmation et débloquer un financement.', c: '#2f2f35' },
+  { n: 'Samuel Okoye', r: 'Artiste plasticien', t: 'Des conseils concrets et une vraie écoute. J’ai repris mon dossier de résidence avec confiance.', c: '#4a4a52' },
+  { n: 'Inès Bernard', r: 'Responsable d’association', t: 'La séance complète m’a donné un plan d’action clair pour toute l’année.', c: '#26262b' },
+  { n: 'Lucas Martin', r: 'Producteur', t: 'Rapide, précis, bienveillant. Exactement ce qu’il me fallait avant mon lancement.', c: '#3a3a40' }
+];
+let offset = 0;
+const slider = $('#slider');
+function renderPeople() {
+  slider.classList.remove('swap'); void slider.offsetWidth; if (renderPeople.ran) slider.classList.add('swap');
+  renderPeople.ran = true;
+  slider.innerHTML = [0, 1, 2].map((i) => PEOPLE[(offset + i) % PEOPLE.length]).map((p) => `
+    <article class="person"><div class="face" style="--c:${p.c}"></div><h5>${p.n}</h5><small>${p.r}</small><p>${p.t}</p></article>`).join('');
+}
+$('#prev').addEventListener('click', () => { offset = (offset + PEOPLE.length - 1) % PEOPLE.length; renderPeople(); });
+$('#next').addEventListener('click', () => { offset = (offset + 1) % PEOPLE.length; renderPeople(); });
+renderPeople();
+
+// ===== Animations =====
+(() => {
+  const root = document.documentElement;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  root.classList.add('js');
+
+  // Smooth inertial scroll (Lenis)
+  let lenis = null;
+  if (!reduce && window.Lenis) {
+    lenis = new Lenis({ lerp: 0.075, wheelMultiplier: 0.9, smoothWheel: true });
+    const raf = (t) => { lenis.raf(t); requestAnimationFrame(raf); };
+    requestAnimationFrame(raf);
+    document.querySelectorAll('a[href^="#"]').forEach((a) => a.addEventListener('click', (e) => {
+      const id = a.getAttribute('href');
+      const el = id.length > 1 && document.querySelector(id);
+      if (el) { e.preventDefault(); lenis.scrollTo(el, { offset: -40, duration: 1.6 }); }
+    }));
+  }
+
+  // Split the giant hero word into letters
+  const giant = document.querySelector('.hero-giant');
+  const word = giant.textContent.trim();
+  giant.setAttribute('aria-label', word);
+  giant.innerHTML = [...word].map((c, i) => `<span style="--i:${i}">${c}</span>`).join('');
+  document.querySelectorAll('.pill-nav li').forEach((li, i) => li.style.setProperty('--i', i));
+  document.querySelectorAll('.bars').forEach((b) => b.querySelectorAll('i').forEach((el, i) => el.style.setProperty('--i', i)));
+
+  // Hero entrance once fonts are ready
+  const start = () => requestAnimationFrame(() => requestAnimationFrame(() => document.querySelector('.hero').classList.add('loaded')));
+  (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(start);
+
+  // Scroll reveals, staggered inside each group
+  const groups = [
+    ['.head h2', '.head .small'],
+    ['.search-card'],
+    ['#offers .offer'],
+    ['.about-photo', '.about-body > *'],
+    ['.stats .stat'],
+    ['.why .why-card'],
+    ['.row-head'],
+    ['#slider .person'],
+    ['.cta-card > *'],
+    ['.cols > div']
+  ];
+  const items = [];
+  groups.forEach((sel) => sel.forEach((s) => document.querySelectorAll(s).forEach((el) => items.push(el))));
+  const seenParents = new Map();
+  items.forEach((el) => {
+    el.classList.add('rv');
+    const key = el.parentElement;
+    const n = seenParents.get(key) || 0;
+    seenParents.set(key, n + 1);
+    el.style.setProperty('--d', `${Math.min(n, 5) * 0.12}s`);
+  });
+  const io = new IntersectionObserver((entries) => entries.forEach((en) => {
+    if (!en.isIntersecting) return;
+    en.target.classList.add('in');
+    io.unobserve(en.target);
+    setTimeout(() => en.target.classList.add('done'), 2000);
+  }), { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+  items.forEach((el) => io.observe(el));
+  const wm = document.querySelector('.watermark');
+  io.observe(wm);
+
+  // Parallax on the hero (driven by scroll position)
+  const set = (y) => document.querySelector('.hero-stage').style.setProperty('--p', Math.min(y, 900));
+  if (lenis) lenis.on('scroll', ({ scroll }) => set(scroll));
+  else addEventListener('scroll', () => set(scrollY), { passive: true });
+})();
