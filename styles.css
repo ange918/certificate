@@ -272,8 +272,9 @@ button, input, select, textarea { font: inherit; color: inherit; }
   background: rgba(0,0,0,.75); color: #fff; font-size: 10px; backdrop-filter: blur(6px);
 }
 .about-body .lead { font-size: 20px; font-weight: 500; line-height: 1.4; letter-spacing: -.01em; margin-bottom: 18px; }
-.about-body p { font-size: 12px; line-height: 1.8; color: #55555e; }
-.tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 22px 0; }
+.about-body p { font-size: 12px; line-height: 1.8; color: #55555e; margin-bottom: 10px; }
+.about-body p b { color: #0d0d0f; font-weight: 600; }
+.tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 22px 0 26px; }
 .tags li { padding: 7px 14px; border-radius: 999px; background: #f0f0f5; font-size: 10px; color: #444; }
 .about-stats { display: flex; gap: 40px; margin: 6px 0 26px; padding: 18px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .about-stats b { display: block; font-size: 22px; font-weight: 600; }

@@ -1,4 +1,4 @@
-// Mondoukbe Moncho — réservation de rendez-vous
+// Mondukpè Montcho — réservation de rendez-vous
 const OFFERS = [
   { min: 15,  price: 20,  title: 'Échange express',    sub: 'Question ciblée',        tags: ['Visio', 'Avis rapide', 'Orientation'], c: ['#3b5a7a', '#1c2b3c'] },
   { min: 30,  price: 35,  title: 'Échange découverte', sub: 'Premier tour du projet', tags: ['Visio', 'Diagnostic', 'Pistes'],       c: ['#7a4b3b', '#2c1a14'] },
@@ -9,7 +9,7 @@ const OFFERS = [
 ];
 const HOURS = { start: 9, end: 18 };           // créneaux 9h–18h, du lundi au vendredi
 const STEP = 15;                                // pas de réservation (minutes)
-const STORE = 'moncho_bookings';
+const STORE = 'montcho_bookings';
 
 const $ = (s) => document.querySelector(s);
 const fmtDur = (m) => (m < 60 ? `${m} min` : m % 60 ? `${Math.floor(m / 60)} h ${m % 60}` : `${m / 60} h`);
