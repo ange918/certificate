@@ -642,3 +642,8 @@ button, input, select, textarea { font-family: inherit; }
 .arrow { background: var(--ink); }
 .cta .hl { color: #ff9a5c; }
 .section[hidden] { display: none; }
+
+/* Desktop only: hero copy a little higher */
+@media (min-width: 901px) {
+  .hero-copy { top: 485px; }
+}
