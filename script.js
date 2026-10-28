@@ -123,10 +123,10 @@ document.querySelectorAll('.bars').forEach((el) => {
 
 // --- Testimonials slider
 const PEOPLE = [
-  { n: 'Claire Dubois', r: 'Directrice de festival', t: 'Une demi-heure a suffi pour clarifier notre programmation et débloquer un financement.', c: '#2f2f35' },
-  { n: 'Samuel Okoye', r: 'Artiste plasticien', t: 'Des conseils concrets et une vraie écoute. J’ai repris mon dossier de résidence avec confiance.', c: '#4a4a52' },
-  { n: 'Inès Bernard', r: 'Responsable d’association', t: 'La séance complète m’a donné un plan d’action clair pour toute l’année.', c: '#26262b' },
-  { n: 'Lucas Martin', r: 'Producteur', t: 'Rapide, précis, bienveillant. Exactement ce qu’il me fallait avant mon lancement.', c: '#3a3a40' }
+  { n: 'Master Class « Maîtrise ton argent »', r: '13 juin 2026 · CCIB Ganhi', t: 'Animation du panel 1 : « Construis ta planification et tes finances personnelles ».', img: 'images/conference.jpg' },
+  { n: 'Meet-up et rencontre presse', r: '15 août 2026 · Golden Tulip Le Diplomate, Cotonou', t: 'Modération du panel 2 : « Création, identité et performance dans le domaine du cosplay au Bénin ».', img: 'images/hero.jpg' },
+  { n: 'Label musical OCULUS', r: 'Oculus Music Group', t: 'Secrétaire exécutive et porte-parole : conception, coordination et valorisation de projets médiatiques et artistiques.', img: 'images/oculus.jpg' },
+  { n: 'Voix des femmes', r: 'Médias, réseaux et débat public', t: 'Une approche critique et accessible de l\u2019information, attentive à la voix des femmes et aux réalités sociales africaines.', img: 'images/yodun.jpg' }
 ];
 let offset = 0;
 const slider = $('#slider');
@@ -134,7 +134,7 @@ function renderPeople() {
   slider.classList.remove('swap'); void slider.offsetWidth; if (renderPeople.ran) slider.classList.add('swap');
   renderPeople.ran = true;
   slider.innerHTML = [0, 1, 2].map((i) => PEOPLE[(offset + i) % PEOPLE.length]).map((p) => `
-    <article class="person"><div class="face" style="--c:${p.c}"></div><h5>${p.n}</h5><small>${p.r}</small><p>${p.t}</p></article>`).join('');
+    <article class="person"><div class="face" style="background-image:url('${p.img}')"></div><h5>${p.n}</h5><small>${p.r}</small><p>${p.t}</p></article>`).join('');
 }
 $('#prev').addEventListener('click', () => { offset = (offset + PEOPLE.length - 1) % PEOPLE.length; renderPeople(); });
 $('#next').addEventListener('click', () => { offset = (offset + 1) % PEOPLE.length; renderPeople(); });
@@ -159,11 +159,12 @@ renderPeople();
     }));
   }
 
-  // Split the giant hero word into letters
+  // Split the giant hero name into letters (per line)
   const giant = document.querySelector('.hero-giant');
-  const word = giant.textContent.trim();
-  giant.setAttribute('aria-label', word);
-  giant.innerHTML = [...word].map((c, i) => `<span style="--i:${i}">${c}</span>`).join('');
+  let n = 0;
+  giant.querySelectorAll('.ln').forEach((ln) => {
+    ln.innerHTML = [...ln.textContent].map((c) => `<span class="l" style="--i:${n++}">${c}</span>`).join('');
+  });
   document.querySelectorAll('.pill-nav li').forEach((li, i) => li.style.setProperty('--i', i));
   document.querySelectorAll('.bars').forEach((b) => b.querySelectorAll('i').forEach((el, i) => el.style.setProperty('--i', i)));
 
