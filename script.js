@@ -27,17 +27,23 @@ let pending = null;
 const durSel = $('#duration');
 OFFERS.forEach((o) => durSel.add(new Option(`${fmtDur(o.min)} — ${fmtPrice(o.price)}`, o.min)));
 $('#offers').innerHTML = OFFERS.map((o) => `
-  <button class="offer" data-min="${o.min}">
-    <div class="pic" style="background:linear-gradient(135deg,${o.c[0]},${o.c[1]})"><span>${o.min < 60 ? o.min : o.min / 60}</span><em>${o.min < 60 ? 'min' : 'h'}</em></div>
-    <div class="meta"><div><b>${o.title}</b><small>${o.sub}</small></div><span class="p">${fmtPrice(o.price)}</span></div>
-    <ul>${o.tags.map((t) => `<li>${t}</li>`).join('')}</ul>
-  </button>`).join('');
+  <article class="offer-card" data-min="${o.min}">
+    <div class="oc-pic" style="background:linear-gradient(135deg,${o.c[0]},${o.c[1]})"><span>${o.min < 60 ? o.min : o.min / 60}</span><em>${o.min < 60 ? 'min' : 'h'}</em></div>
+    <div class="oc-body">
+      <small>${o.sub}</small>
+      <h3>${o.title}</h3>
+      <p class="oc-price">${fmtPrice(o.price)}</p>
+      <ul>${o.tags.map((t) => `<li>${t}</li>`).join('')}</ul>
+      <button type="button" class="btn btn-dark btn-sm pick">Choisir cette formule</button>
+    </div>
+  </article>`).join('');
 
-document.querySelectorAll('.offer').forEach((el) => el.addEventListener('click', () => {
-  durSel.value = el.dataset.min;
+document.querySelectorAll('.offer-card .pick').forEach((btn) => btn.addEventListener('click', () => {
+  durSel.value = btn.closest('.offer-card').dataset.min;
   update();
   $('#reserver').scrollIntoView({ behavior: 'smooth', block: 'center' });
 }));
+
 
 // --- Date / time
 const dateInp = $('#date');
@@ -121,24 +127,20 @@ document.querySelectorAll('.bars').forEach((el) => {
   el.innerHTML = Array.from({ length: 10 }, (_, i) => `<i style="height:${rising ? 25 + i * 7 + rnd() * 8 : 30 + rnd() * 70}%"></i>`).join('');
 });
 
-// --- Testimonials slider
-const PEOPLE = [
-  { n: 'Master Class « Maîtrise ton argent »', r: '13 juin 2026 · CCIB Ganhi', t: 'Animation du panel 1 : « Construis ta planification et tes finances personnelles ».', img: 'images/conference.jpg' },
-  { n: 'Meet-up et rencontre presse', r: '15 août 2026 · Golden Tulip Le Diplomate, Cotonou', t: 'Modération du panel 2 : « Création, identité et performance dans le domaine du cosplay au Bénin ».', img: 'images/hero.jpg' },
-  { n: 'Label musical OCULUS', r: 'Oculus Music Group', t: 'Secrétaire exécutive et porte-parole : conception, coordination et valorisation de projets médiatiques et artistiques.', img: 'images/oculus.jpg' },
-  { n: 'Voix des femmes', r: 'Médias, réseaux et débat public', t: 'Une approche critique et accessible de l\u2019information, attentive à la voix des femmes et aux réalités sociales africaines.', img: 'images/yodun.jpg' }
+// --- Testimonials: two marquee rows (opposite directions)
+// TODO: replace these sample texts with real testimonials before going live.
+const TESTIMONIALS = [
+  { t: 'Un échange clair et bienveillant. J’ai repris mon projet avec des idées concrètes.', a: 'Participant(e)' },
+  { t: 'Une vraie écoute et des conseils directs, sans détour. Exactement ce qu’il me fallait.', a: 'Participant(e)' },
+  { t: 'En 30 minutes, j’ai gagné en confiance pour ma prise de parole.', a: 'Participant(e)' },
+  { t: 'Un regard critique et accessible, qui m’a aidé(e) à clarifier mon message.', a: 'Participant(e)' },
+  { t: 'Des pistes précises et réalistes. Je recommande.', a: 'Participant(e)' },
+  { t: 'Une approche sincère, engagée et très professionnelle.', a: 'Participant(e)' }
 ];
-let offset = 0;
-const slider = $('#slider');
-function renderPeople() {
-  slider.classList.remove('swap'); void slider.offsetWidth; if (renderPeople.ran) slider.classList.add('swap');
-  renderPeople.ran = true;
-  slider.innerHTML = [0, 1, 2].map((i) => PEOPLE[(offset + i) % PEOPLE.length]).map((p) => `
-    <article class="person"><div class="face" style="background-image:url('${p.img}')"></div><h5>${p.n}</h5><small>${p.r}</small><p>${p.t}</p></article>`).join('');
-}
-$('#prev').addEventListener('click', () => { offset = (offset + PEOPLE.length - 1) % PEOPLE.length; renderPeople(); });
-$('#next').addEventListener('click', () => { offset = (offset + 1) % PEOPLE.length; renderPeople(); });
-renderPeople();
+const card = (x) => `<figure class="tcard"><blockquote>« ${x.t} »</blockquote><figcaption>${x.a}</figcaption></figure>`;
+const fill = (el, list) => { const html = list.map(card).join(''); el.innerHTML = `<div class="loop">${html}</div><div class="loop" aria-hidden="true">${html}</div>`; };
+fill($('#rowA'), TESTIMONIALS);
+fill($('#rowB'), [...TESTIMONIALS].reverse());
 
 // ===== Animations =====
 (() => {
@@ -176,13 +178,15 @@ renderPeople();
   const groups = [
     ['.head h2', '.head .small'],
     ['.search-card'],
-    ['#offers .offer'],
     ['.about-photo', '.about-body > *'],
     ['.stats .stat'],
     ['.why .why-card'],
-    ['.row-head'],
-    ['#slider .person'],
-    ['.cta-card > *'],
+    ['.split-left > *'],
+    ['.steps .step'],
+    ['.timeline li'],
+    ['.faq details'],
+    ['.gallery .g'],
+    ['.cta-inner > *'],
     ['.cols > div']
   ];
   const items = [];
@@ -204,6 +208,25 @@ renderPeople();
   items.forEach((el) => io.observe(el));
   const wm = document.querySelector('.watermark');
   io.observe(wm);
+
+  // Sticky stack: earlier formula cards sink back as the next one slides over them
+  const cards = [...document.querySelectorAll('.offer-card')];
+  const stackTick = () => {
+    if (innerWidth <= 900) { cards.forEach((c) => { c.style.transform = ''; c.style.opacity = ''; }); return; }
+    const stick = innerHeight * 0.15;
+    cards.forEach((c, i) => {
+      const nxt = cards[i + 1];
+      if (!nxt) return;
+      const h = c.offsetHeight;
+      const prog = Math.min(1, Math.max(0, 1 - (nxt.getBoundingClientRect().top - stick) / h));
+      c.style.transform = `scale(${1 - prog * 0.06}) translateY(${-prog * 10}px)`;
+      c.style.opacity = String(1 - prog * 0.35);
+    });
+  };
+  addEventListener('scroll', stackTick, { passive: true });
+  addEventListener('resize', stackTick);
+  if (lenis) lenis.on('scroll', stackTick);
+  stackTick();
 
   // Parallax on the hero (driven by scroll position)
   const set = (y) => document.querySelector('.hero-stage').style.setProperty('--p', Math.min(y, 900));
