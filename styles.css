@@ -358,3 +358,35 @@ html.lenis, html.lenis body { height: auto; }
   .portrait { height: 340px; }
   .about-stats { gap: 22px; }
 }
+
+/* ===== Photos ===== */
+.hero-stage { margin-top: -96px; height: 790px; }
+.hero-stage::before {
+  inset: 0;
+  background: url("images/hero.jpg") center 0% / cover no-repeat;
+}
+.hero-stage::after {
+  height: 100%;
+  background:
+    linear-gradient(180deg, rgba(251,251,254,.96) 0, rgba(251,251,254,.8) 9%, rgba(251,251,254,0) 18%),
+    linear-gradient(180deg, rgba(10,6,4,0) 50%, rgba(10,6,4,.8) 100%);
+}
+.tower { display: none; }
+.hero-small { top: 190px; left: 12%; color: #fff; text-shadow: 0 1px 14px rgba(0,0,0,.45); }
+.hero-text { top: 196px; color: #fff; text-shadow: 0 1px 12px rgba(0,0,0,.5); }
+.hero-giant { top: 400px; z-index: 2; color: rgba(255,255,255,.72); mix-blend-mode: normal; -webkit-mask-image: none; mask-image: none; }
+.hero-bottom { top: 665px; }
+
+.canopy {
+  height: 520px;
+  background: url("images/cta.jpg") center 82% / cover no-repeat;
+  border-bottom: 0;
+}
+@media (max-width: 900px) {
+  .hero-stage { height: 700px; }
+  .hero-small { left: 24px; top: 170px; }
+  .hero-text { position: absolute; right: 24px; top: 250px; margin: 0; width: 55%; }
+  .hero-giant { top: 330px; }
+  .hero-bottom { top: 590px; }
+  .canopy { height: 420px; }
+}
