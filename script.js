@@ -1,15 +1,15 @@
-// Mondoukbe Moncho — réservation de rendez-vous
+// Mondukpè Montcho — réservation de rendez-vous
 const OFFERS = [
-  { min: 15,  price: 20,  title: 'Échange express',    sub: 'Question ciblée',        tags: ['Visio', 'Avis rapide', 'Orientation'], c: ['#3b5a7a', '#1c2b3c'] },
-  { min: 30,  price: 35,  title: 'Échange découverte', sub: 'Premier tour du projet', tags: ['Visio', 'Diagnostic', 'Pistes'],       c: ['#7a4b3b', '#2c1a14'] },
-  { min: 45,  price: 50,  title: 'Échange approfondi', sub: 'Analyse détaillée',      tags: ['Visio', 'Stratégie', 'Conseils'],      c: ['#3f6b4f', '#16281d'] },
-  { min: 60,  price: 65,  title: 'Séance complète',    sub: 'Une heure dédiée',       tags: ['Tous modes', 'Plan d’action', 'Suivi'], c: ['#5a4a7a', '#201a2e'] },
-  { min: 90,  price: 90,  title: 'Atelier de projet',  sub: 'Travail en profondeur',  tags: ['Tous modes', 'Atelier', 'Livrable'],   c: ['#7a6a3b', '#2c2514'] },
-  { min: 120, price: 120, title: 'Session intensive',  sub: 'Deux heures, un cap',    tags: ['Tous modes', 'Feuille de route', 'Suivi'], c: ['#3b7a76', '#142b29'] }
+  { min: 15,  price: 20,  title: 'Échange express',    sub: 'Question ciblée',        tags: ['Visio', 'Avis rapide', 'Orientation'], c: ['#d2521b', '#8a2f0c'] },
+  { min: 30,  price: 35,  title: 'Échange découverte', sub: 'Premier tour du projet', tags: ['Visio', 'Diagnostic', 'Pistes'],       c: ['#2a2419', '#0a0905'] },
+  { min: 45,  price: 50,  title: 'Échange approfondi', sub: 'Analyse détaillée',      tags: ['Visio', 'Stratégie', 'Conseils'],      c: ['#b9774a', '#5a3216'] },
+  { min: 60,  price: 65,  title: 'Séance complète',    sub: 'Une heure dédiée',       tags: ['Tous modes', 'Plan d’action', 'Suivi'], c: ['#e08a4f', '#a8431a'] },
+  { min: 90,  price: 90,  title: 'Atelier de projet',  sub: 'Travail en profondeur',  tags: ['Tous modes', 'Atelier', 'Livrable'],   c: ['#4a3f2c', '#1c1710'] },
+  { min: 120, price: 120, title: 'Session intensive',  sub: 'Deux heures, un cap',    tags: ['Tous modes', 'Feuille de route', 'Suivi'], c: ['#c25c2c', '#521e08'] }
 ];
 const HOURS = { start: 9, end: 18 };           // créneaux 9h–18h, du lundi au vendredi
 const STEP = 15;                                // pas de réservation (minutes)
-const STORE = 'moncho_bookings';
+const STORE = 'montcho_bookings';
 
 const $ = (s) => document.querySelector(s);
 const fmtDur = (m) => (m < 60 ? `${m} min` : m % 60 ? `${Math.floor(m / 60)} h ${m % 60}` : `${m / 60} h`);
@@ -27,17 +27,23 @@ let pending = null;
 const durSel = $('#duration');
 OFFERS.forEach((o) => durSel.add(new Option(`${fmtDur(o.min)} — ${fmtPrice(o.price)}`, o.min)));
 $('#offers').innerHTML = OFFERS.map((o) => `
-  <button class="offer" data-min="${o.min}">
-    <div class="pic" style="background:linear-gradient(135deg,${o.c[0]},${o.c[1]})"><span>${o.min < 60 ? o.min : o.min / 60}</span><em>${o.min < 60 ? 'min' : 'h'}</em></div>
-    <div class="meta"><div><b>${o.title}</b><small>${o.sub}</small></div><span class="p">${fmtPrice(o.price)}</span></div>
-    <ul>${o.tags.map((t) => `<li>${t}</li>`).join('')}</ul>
-  </button>`).join('');
+  <article class="offer-card" data-min="${o.min}">
+    <div class="oc-pic" style="background:linear-gradient(135deg,${o.c[0]},${o.c[1]})"><span>${o.min < 60 ? o.min : o.min / 60}</span><em>${o.min < 60 ? 'min' : 'h'}</em></div>
+    <div class="oc-body">
+      <small>${o.sub}</small>
+      <h3>${o.title}</h3>
+      <p class="oc-price">${fmtPrice(o.price)}</p>
+      <ul>${o.tags.map((t) => `<li>${t}</li>`).join('')}</ul>
+      <button type="button" class="btn btn-dark btn-sm pick">Choisir cette formule</button>
+    </div>
+  </article>`).join('');
 
-document.querySelectorAll('.offer').forEach((el) => el.addEventListener('click', () => {
-  durSel.value = el.dataset.min;
+document.querySelectorAll('.offer-card .pick').forEach((btn) => btn.addEventListener('click', () => {
+  durSel.value = btn.closest('.offer-card').dataset.min;
   update();
   $('#reserver').scrollIntoView({ behavior: 'smooth', block: 'center' });
 }));
+
 
 // --- Date / time
 const dateInp = $('#date');
@@ -121,24 +127,20 @@ document.querySelectorAll('.bars').forEach((el) => {
   el.innerHTML = Array.from({ length: 10 }, (_, i) => `<i style="height:${rising ? 25 + i * 7 + rnd() * 8 : 30 + rnd() * 70}%"></i>`).join('');
 });
 
-// --- Testimonials slider
-const PEOPLE = [
-  { n: 'Claire Dubois', r: 'Directrice de festival', t: 'Une demi-heure a suffi pour clarifier notre programmation et débloquer un financement.', c: '#2f2f35' },
-  { n: 'Samuel Okoye', r: 'Artiste plasticien', t: 'Des conseils concrets et une vraie écoute. J’ai repris mon dossier de résidence avec confiance.', c: '#4a4a52' },
-  { n: 'Inès Bernard', r: 'Responsable d’association', t: 'La séance complète m’a donné un plan d’action clair pour toute l’année.', c: '#26262b' },
-  { n: 'Lucas Martin', r: 'Producteur', t: 'Rapide, précis, bienveillant. Exactement ce qu’il me fallait avant mon lancement.', c: '#3a3a40' }
+// --- Testimonials: two marquee rows (opposite directions)
+// TODO: replace these sample texts with real testimonials before going live.
+const TESTIMONIALS = [
+  { t: 'Un échange clair et bienveillant. J’ai repris mon projet avec des idées concrètes.', a: 'Participant(e)' },
+  { t: 'Une vraie écoute et des conseils directs, sans détour. Exactement ce qu’il me fallait.', a: 'Participant(e)' },
+  { t: 'En 30 minutes, j’ai gagné en confiance pour ma prise de parole.', a: 'Participant(e)' },
+  { t: 'Un regard critique et accessible, qui m’a aidé(e) à clarifier mon message.', a: 'Participant(e)' },
+  { t: 'Des pistes précises et réalistes. Je recommande.', a: 'Participant(e)' },
+  { t: 'Une approche sincère, engagée et très professionnelle.', a: 'Participant(e)' }
 ];
-let offset = 0;
-const slider = $('#slider');
-function renderPeople() {
-  slider.classList.remove('swap'); void slider.offsetWidth; if (renderPeople.ran) slider.classList.add('swap');
-  renderPeople.ran = true;
-  slider.innerHTML = [0, 1, 2].map((i) => PEOPLE[(offset + i) % PEOPLE.length]).map((p) => `
-    <article class="person"><div class="face" style="--c:${p.c}"></div><h5>${p.n}</h5><small>${p.r}</small><p>${p.t}</p></article>`).join('');
-}
-$('#prev').addEventListener('click', () => { offset = (offset + PEOPLE.length - 1) % PEOPLE.length; renderPeople(); });
-$('#next').addEventListener('click', () => { offset = (offset + 1) % PEOPLE.length; renderPeople(); });
-renderPeople();
+const card = (x) => `<figure class="tcard"><blockquote>« ${x.t} »</blockquote><figcaption>${x.a}</figcaption></figure>`;
+const fill = (el, list) => { const html = list.map(card).join(''); el.innerHTML = `<div class="loop">${html}</div><div class="loop" aria-hidden="true">${html}</div>`; };
+fill($('#rowA'), TESTIMONIALS);
+fill($('#rowB'), [...TESTIMONIALS].reverse());
 
 // ===== Animations =====
 (() => {
@@ -159,11 +161,12 @@ renderPeople();
     }));
   }
 
-  // Split the giant hero word into letters
+  // Split the giant hero name into letters (per word)
   const giant = document.querySelector('.hero-giant');
-  const word = giant.textContent.trim();
-  giant.setAttribute('aria-label', word);
-  giant.innerHTML = [...word].map((c, i) => `<span style="--i:${i}">${c}</span>`).join('');
+  let n = 0;
+  giant.querySelectorAll('.w').forEach((ln) => {
+    ln.innerHTML = [...ln.textContent].map((c) => `<span class="l" style="--i:${n++}">${c}</span>`).join('');
+  });
   document.querySelectorAll('.pill-nav li').forEach((li, i) => li.style.setProperty('--i', i));
   document.querySelectorAll('.bars').forEach((b) => b.querySelectorAll('i').forEach((el, i) => el.style.setProperty('--i', i)));
 
@@ -175,13 +178,15 @@ renderPeople();
   const groups = [
     ['.head h2', '.head .small'],
     ['.search-card'],
-    ['#offers .offer'],
     ['.about-photo', '.about-body > *'],
     ['.stats .stat'],
     ['.why .why-card'],
-    ['.row-head'],
-    ['#slider .person'],
-    ['.cta-card > *'],
+    ['.split-left > *'],
+    ['.steps .step'],
+    ['.timeline li'],
+    ['.faq details'],
+    ['.gallery .g'],
+    ['.cta-inner > *'],
     ['.cols > div']
   ];
   const items = [];
@@ -203,6 +208,25 @@ renderPeople();
   items.forEach((el) => io.observe(el));
   const wm = document.querySelector('.watermark');
   io.observe(wm);
+
+  // Sticky stack: earlier formula cards sink back as the next one slides over them
+  const cards = [...document.querySelectorAll('.offer-card')];
+  const stackTick = () => {
+    if (innerWidth <= 900) { cards.forEach((c) => { c.style.transform = ''; c.style.opacity = ''; }); return; }
+    const stick = innerHeight * 0.15;
+    cards.forEach((c, i) => {
+      const nxt = cards[i + 1];
+      if (!nxt) return;
+      const h = c.offsetHeight;
+      const prog = Math.min(1, Math.max(0, 1 - (nxt.getBoundingClientRect().top - stick) / h));
+      c.style.transform = `scale(${1 - prog * 0.06}) translateY(${-prog * 10}px)`;
+      c.style.opacity = String(1 - prog * 0.35);
+    });
+  };
+  addEventListener('scroll', stackTick, { passive: true });
+  addEventListener('resize', stackTick);
+  if (lenis) lenis.on('scroll', stackTick);
+  stackTick();
 
   // Parallax on the hero (driven by scroll position)
   const set = (y) => document.querySelector('.hero-stage').style.setProperty('--p', Math.min(y, 900));

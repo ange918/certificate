@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mondoukbe Moncho — Conseil culturel</title>
-  <meta name="description" content="Réservez un moment d'échange avec Mondoukbe Moncho, professionnel du domaine culturel : 15 minutes, 30 minutes ou plus.">
+  <title>Mirabelle Mondukpè Montcho — Journaliste-animatrice</title>
+  <meta name="description" content="Réservez un moment d'échange avec Mirabelle Mondukpè Montcho, journaliste-animatrice, communicante engagée et militante féministe béninoise : 15 minutes, 30 minutes ou plus.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -16,7 +16,7 @@
   <!-- HERO -->
   <section class="hero" id="accueil">
     <nav class="nav">
-      <a href="#accueil" class="logo">MONDOUKBE<b>MONCHO</b></a>
+      <a href="#accueil" class="logo">MIRABELLE MONDUKPÈ<b>MONTCHO</b></a>
       <ul class="pill-nav">
         <li><a href="#accueil" class="active">Accueil</a></li>
         <li><a href="#a-propos">À propos</a></li>
@@ -30,22 +30,14 @@
     </nav>
 
     <div class="hero-stage">
-      <h1 class="hero-small">Faites vivre<br>votre</h1>
-      <div class="hero-giant" aria-hidden="true">Culture</div>
-      <p class="hero-text">Artistes, institutions, associations ou porteurs de projets : échangeons en tête-à-tête sur votre vision culturelle et trouvons ensemble la meilleure voie pour la concrétiser.</p>
-      <div class="tower" aria-hidden="true"></div>
-
-      <div class="hero-bottom">
-        <div class="stats-pill">
-          <div><b>100%</b><small>Écoute</small></div>
-          <div><b>500+</b><small>Échanges</small></div>
-          <div><b>150+</b><small>Projets</small></div>
-          <div><b>15+</b><small>Années</small></div>
+      <div class="hero-copy">
+        <h1 class="hero-giant" aria-label="Mirabelle Mondukpè Montcho"><span class="w">Mirabelle</span> <span class="w">Mondukpè</span> <span class="w">Montcho</span></h1>
+        <p class="hero-roles">Journaliste <i></i> Animatrice <i></i> Bilingue <i></i> Communicante engagée <i></i> Militante féministe</p>
+        <p class="hero-line">Échangeons en tête-à-tête.</p>
+        <div class="hero-cta">
+          <a href="#a-propos" class="btn btn-ghost">En savoir plus</a>
+          <a href="#reserver" class="btn btn-light">Réserver</a>
         </div>
-        <a href="#reserver" class="play-card">
-          <span class="thumb"><span class="play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span></span>
-          <span>Une conversation<br>à la fois.</span>
-        </a>
       </div>
     </div>
   </section>
@@ -53,8 +45,8 @@
   <!-- INTRO + BOOKING -->
   <section class="section" id="intro">
     <div class="head">
-      <h2>Votre projet culturel mérite<br>d'être entendu.</h2>
-      <p class="small">Chaque échange apporte un regard expert, une écoute attentive et des pistes concrètes pour votre parcours.</p>
+      <h2>Un échange avec moi,<br>un <span class="hl">regard</span> qui fait avancer.</h2>
+      <p class="small">Chaque échange apporte une écoute attentive, un regard critique et des pistes concrètes pour votre projet ou votre prise de parole.</p>
     </div>
 
     <div class="search-card" id="reserver">
@@ -83,102 +75,159 @@
     </div>
   </section>
 
-  <!-- OFFERS -->
+  <!-- OFFERS (sticky stack) -->
   <section class="section" id="tarifs">
-    <div class="head">
-      <h2>Explorez mes<br>formules d'échange</h2>
-      <p class="small">Chaque formule offre un temps dédié, une écoute exclusive et des conseils concrets adaptés à votre projet.</p>
+    <div class="split">
+      <div class="split-left">
+        <h2>Explorez mes<br><span class="hl">formules</span> d'échange</h2>
+        <p class="small">Chaque formule offre un temps dédié, une écoute exclusive et des conseils concrets adaptés à votre projet.</p>
+        <a href="#reserver" class="btn btn-dark btn-sm">Réserver un créneau</a>
+      </div>
+      <div class="stack" id="offers"></div>
     </div>
-    <div class="grid" id="offers"></div>
   </section>
 
   <!-- ABOUT -->
   <section class="section" id="a-propos">
     <div class="head">
-      <h2>À propos de<br>Mondoukbe Moncho</h2>
-      <p class="small">Un professionnel du domaine culturel, à l'écoute des artistes, des structures et des porteurs de projets.</p>
+      <h2>À propos de<br>Mirabelle <span class="hl">Montcho</span></h2>
+      <p class="small">Journaliste-animatrice, communicante engagée et militante féministe béninoise, connue sous le pseudonyme « Mira l'Insoumise ».</p>
     </div>
     <div class="about">
       <div class="about-photo">
-        <div class="portrait" aria-hidden="true"></div>
-        <span class="badge">Professionnel du secteur culturel</span>
+        <div class="portrait" role="img" aria-label="Portrait de Mirabelle Montcho"></div>
+        <span class="badge">Mira l'Insoumise</span>
       </div>
       <div class="about-body">
-        <p class="lead">Je mets mon expérience du monde culturel au service de celles et ceux qui veulent faire exister un projet, une œuvre ou une structure.</p>
-        <p>Au fil des années, j'ai accompagné des artistes, des associations et des institutions dans leurs choix de programmation, de production, de financement et de développement. Mon approche : écouter d'abord, puis proposer des pistes claires et réalistes.</p>
+        <p class="lead">Journaliste-animatrice, communicante et créatrice de contenu engagée sur les questions de droits des femmes, de citoyenneté et d'enjeux de société.</p>
+        <p>Formée en journalisme et en droit privé, elle évolue à l'intersection des médias, de la communication stratégique et de l'analyse des dynamiques sociales contemporaines. Habituée des espaces de débat public (émissions télé, podcasts, panels et conférences), elle modère avec aisance des discussions réunissant des profils variés.</p>
+        <p>Elle est aussi secrétaire exécutive et porte-parole du label musical OCULUS, où elle contribue à la conception, à la coordination et à la valorisation de projets médiatiques et artistiques à fort impact.</p>
+        <p>Activiste et militante féministe béninoise, connue sous le pseudonyme « Mira l'Insoumise », elle s'engage pour les droits des filles et des femmes, la prévention des violences basées sur le genre (excision, agressions) et la santé reproductive, avec des prises de position directes sur les réseaux sociaux.</p>
         <ul class="tags">
-          <li>Arts vivants</li><li>Patrimoine</li><li>Médiation culturelle</li><li>Production</li><li>Financement</li><li>Stratégie</li>
+          <li>Journalisme</li><li>Animation et modération</li><li>Communication stratégique</li><li>Droits des femmes</li><li>Santé sexuelle et reproductive</li><li>Plaidoyer</li><li>Bilingue</li>
         </ul>
-        <div class="about-stats">
-          <div><b>15+</b><small>Années d'expérience</small></div>
-          <div><b>150+</b><small>Projets accompagnés</small></div>
-          <div><b>500+</b><small>Échanges réalisés</small></div>
-        </div>
         <a href="#reserver" class="btn btn-dark btn-sm">Prendre rendez-vous</a>
       </div>
     </div>
   </section>
 
-  <!-- STATS -->
+  <!-- WHAT I OFFER -->
   <section class="section">
     <div class="head">
-      <h2>Découvrez ce que j'offre<br>et comment ça marche</h2>
-      <p class="small">Un accompagnement simple : vous réservez, nous échangeons, vous repartez avec des actions claires.</p>
+      <h2>Découvrez ce que <span class="hl">j'offre</span><br>et comment ça marche</h2>
+      <p class="small">Un échange simple : vous réservez, nous discutons, vous repartez avec des actions claires.</p>
     </div>
     <div class="stats">
-      <article class="stat"><small>Projets accompagnés</small><b>19%</b><div class="bars" data-seed="1"></div></article>
-      <article class="stat"><small>Échanges réalisés</small><b>820+</b><div class="bars" data-seed="2"></div></article>
-      <article class="stat"><small>Clients satisfaits</small><b>98%</b><div class="bars" data-seed="3"></div></article>
+      <article class="stat"><span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4M8 22h8"/></svg></span><b>Médias et prise de parole</b><p>Conseils pour passer à l'antenne, préparer une intervention ou animer un débat.</p></article>
+      <article class="stat"><span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 9h8M8 13h5"/></svg></span><b>Communication stratégique</b><p>Clarifier un message, un positionnement et la manière de le porter.</p></article>
+      <article class="stat"><span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><circle cx="17.5" cy="9" r="2.5"/><path d="M17 14.5a5 5 0 0 1 4.5 5"/></svg></span><b>Droits des femmes et société</b><p>Échanger sur les enjeux de genre, de citoyenneté et de justice sociale.</p></article>
+    </div>
+  </section>
+
+  <!-- STEPS -->
+  <section class="section" id="etapes">
+    <div class="head">
+      <h2>Réserver en<br><span class="hl">trois étapes</span></h2>
+      <p class="small">Un parcours rapide, sans création de compte.</p>
+    </div>
+    <div class="steps">
+      <article class="step"><span class="n">1</span><h3>Choisissez la durée</h3><p>De 15 minutes à 2 heures. Le prix s'affiche avant de réserver.</p></article>
+      <article class="step"><span class="n">2</span><h3>Sélectionnez la date et l'heure</h3><p>Seuls les créneaux libres vous sont proposés, du lundi au vendredi.</p></article>
+      <article class="step"><span class="n">3</span><h3>Validez et échangeons</h3><p>En visio, par téléphone ou sur place, selon le mode choisi.</p></article>
     </div>
   </section>
 
   <!-- WHY -->
   <section class="section" id="pourquoi">
     <div class="head">
-      <h2>Pourquoi discuter<br>avec moi ?</h2>
+      <h2>Pourquoi discuter<br>avec <span class="hl">moi</span> ?</h2>
       <p class="small">Quatre raisons de réserver un moment d'échange avant de vous lancer ou de poursuivre votre projet.</p>
     </div>
     <div class="why">
-      <article class="why-card"><span class="num">01</span><h3>Un regard d'expert</h3><p>Une lecture lucide de votre projet par quelqu'un qui connaît le terrain culturel de l'intérieur.</p></article>
+      <article class="why-card"><span class="num">01</span><h3>Un regard d'expert</h3><p>Une lecture lucide de votre projet par quelqu'un qui connaît les médias et les enjeux de société de l'intérieur.</p></article>
       <article class="why-card"><span class="num">02</span><h3>Un temps qui vous est dédié</h3><p>De 15 minutes à 2 heures : vous choisissez la durée qui correspond à votre besoin, sans engagement.</p></article>
       <article class="why-card"><span class="num">03</span><h3>Des conseils concrets</h3><p>Vous repartez avec des pistes claires et des actions à mener, pas seulement de bonnes intentions.</p></article>
       <article class="why-card"><span class="num">04</span><h3>Un tarif clair</h3><p>Le prix est affiché avant la réservation, selon la durée. Aucune surprise, aucun abonnement.</p></article>
     </div>
   </section>
 
-  <!-- TESTIMONIALS -->
-  <section class="section">
-    <div class="row-head">
-      <h2>Ils m'ont consulté</h2>
-      <div class="arrows">
-        <button class="arrow" id="prev" aria-label="Précédent"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M15 5l-7 7 7 7"/></svg></button>
-        <button class="arrow" id="next" aria-label="Suivant"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M9 5l7 7-7 7"/></svg></button>
-      </div>
+  <!-- PARCOURS -->
+  <section class="section" id="parcours">
+    <div class="head">
+      <h2>Prises de <span class="hl">parole</span><br>et engagements</h2>
+      <p class="small">Quelques moments marquants de son parcours dans les médias et sur scène.</p>
     </div>
-    <div class="slider" id="slider"></div>
+    <ol class="timeline">
+      <li><span class="when">13 juin 2026</span><div><h3>Master Class « Maîtrise ton argent »</h3><p>Animation du panel 1 : « Construis ta planification et tes finances personnelles ». CCIB Ganhi.</p></div></li>
+      <li><span class="when">15 août 2026</span><div><h3>Meet-up et rencontre presse SUBARACHILL</h3><p>Modération du panel 2 : « Création, identité et performance dans le domaine du cosplay au Bénin ». Golden Tulip Le Diplomate, Cotonou.</p></div></li>
+      <li><span class="when">En cours</span><div><h3>Label musical OCULUS</h3><p>Secrétaire exécutive et porte-parole : conception, coordination et valorisation de projets médiatiques et artistiques.</p></div></li>
+      <li><span class="when">Médias</span><div><h3>Télé, podcasts, panels et conférences</h3><p>Une approche critique et accessible de l'information, attentive à la voix des femmes et aux réalités sociales africaines.</p></div></li>
+    </ol>
   </section>
 
-  <!-- CTA + FOOTER -->
-  <section class="cta-wrap" id="contact">
-    <div class="cta-card">
-      <h2>Prêt à donner vie à votre<br>projet culturel ?</h2>
+  <!-- TESTIMONIALS (marquee) -->
+  <!-- Hidden until real testimonials are added (see TESTIMONIALS in script.js): remove the "hidden" attribute to show it. -->
+  <section class="section wide" id="temoignages" hidden>
+    <div class="head narrow">
+      <h2>Ils m'ont <span class="hl">consulté</span></h2>
+      <p class="small">Ce que disent celles et ceux qui ont réservé un échange.</p>
+    </div>
+    <div class="marquee" aria-label="Témoignages">
+      <div class="track left" id="rowA"></div>
+      <div class="track right" id="rowB"></div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" id="faq">
+    <div class="head">
+      <h2>Questions<br><span class="hl">fréquentes</span></h2>
+      <p class="small">Vous ne trouvez pas votre réponse ? Réservez un échange de 15 minutes.</p>
+    </div>
+    <div class="faq">
+      <details><summary>Quelle durée choisir ?</summary><p>15 minutes pour une question précise, 30 à 45 minutes pour faire le tour d'un projet, 1 heure ou plus pour un travail en profondeur.</p></details>
+      <details><summary>Comment réserver un créneau ?</summary><p>Choisissez la durée, la date et l'heure dans le bloc « Trouvez votre créneau », puis validez avec votre nom et votre e-mail.</p></details>
+      <details><summary>Visio, téléphone ou sur place ?</summary><p>Vous choisissez le mode d'échange au moment de la réservation.</p></details>
+      <details><summary>De quoi puis-je discuter avec elle ?</summary><p>Médias et prise de parole, communication stratégique, droits des femmes, santé sexuelle et reproductive, plaidoyer et enjeux de société.</p></details>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="section" id="galerie">
+    <div class="head">
+      <h2><span class="hl">Galerie</span></h2>
+      <p class="small">Instants de scène, de rencontres et de vie.</p>
+    </div>
+    <div class="gallery">
+      <figure class="g big"><img src="images/g-yodun.jpg" alt="Mirabelle Montcho devant un temple Yodun"></figure>
+      <figure class="g"><img src="images/conference.jpg" alt="En conférence"></figure>
+      <figure class="g"><img src="images/g-selfie.jpg" alt="Portrait avec lunettes"></figure>
+      <figure class="g"><img src="images/oculus.jpg" alt="Devant le mur Oculus Music Group"></figure>
+      <figure class="g"><img src="images/g-event.jpg" alt="Lors d'un événement"></figure>
+    </div>
+  </section>
+
+  <!-- CTA (photo background) -->
+  <section class="cta" id="contact">
+    <div class="cta-inner">
+      <h2>Prêt à échanger<br>sur votre <span class="hl">projet</span> ?</h2>
       <p>Réservez un moment d'échange et avancez avec clarté sur vos idées et vos objectifs.</p>
-      <a href="#reserver" class="btn btn-dark btn-sm">Commencer</a>
+      <a href="#reserver" class="btn btn-light">Commencer</a>
     </div>
-    <div class="canopy"></div>
-
-    <footer class="footer">
-      <div class="cols">
-        <div><h4>Liens rapides</h4><a href="#accueil">Accueil</a><a href="#a-propos">À propos</a><a href="#tarifs">Tarifs</a><a href="#reserver">Réserver</a><a href="#contact">Contact</a></div>
-        <div><h4>Société</h4><a href="#a-propos">Mon approche</a><a href="#tarifs">Formules</a><span class="gap"></span><a href="#">Conditions générales</a><a href="#">Confidentialité</a></div>
-        <div><h4>Support</h4><a href="#">FAQ</a><a href="#">Centre d'aide</a><a href="#contact">Nous contacter</a></div>
-        <div><h4>Suivre</h4><a href="#">Instagram</a><a href="#">LinkedIn</a>
-          <form class="news" onsubmit="return false"><span class="dot"></span><input type="email" placeholder="Votre e-mail" aria-label="E-mail"></form>
-        </div>
-      </div>
-      <div class="watermark" aria-hidden="true">MONCHO</div>
-    </footer>
   </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="cols">
+      <div><h4>Liens rapides</h4><a href="#accueil">Accueil</a><a href="#a-propos">À propos</a><a href="#tarifs">Tarifs</a><a href="#reserver">Réserver</a><a href="#contact">Contact</a></div>
+      <div><h4>Découvrir</h4><a href="#parcours">Parcours</a><a href="#galerie">Galerie</a><span class="gap"></span><a href="#">Conditions générales</a><a href="#">Confidentialité</a></div>
+      <div><h4>Support</h4><a href="#faq">FAQ</a><a href="#etapes">Comment réserver</a><a href="#contact">Nous contacter</a></div>
+      <div><h4>Suivre</h4><a href="#">Instagram</a><a href="#">LinkedIn</a>
+        <form class="news" onsubmit="return false"><span class="dot"></span><input type="email" placeholder="Votre e-mail" aria-label="E-mail"></form>
+      </div>
+    </div>
+    <div class="watermark" aria-hidden="true">MONTCHO</div>
+  </footer>
 </div>
 
 <!-- BOOKING MODAL -->
