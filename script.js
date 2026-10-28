@@ -161,10 +161,10 @@ fill($('#rowB'), [...TESTIMONIALS].reverse());
     }));
   }
 
-  // Split the giant hero name into letters (per line)
+  // Split the giant hero name into letters (per word)
   const giant = document.querySelector('.hero-giant');
   let n = 0;
-  giant.querySelectorAll('.ln').forEach((ln) => {
+  giant.querySelectorAll('.w').forEach((ln) => {
     ln.innerHTML = [...ln.textContent].map((c) => `<span class="l" style="--i:${n++}">${c}</span>`).join('');
   });
   document.querySelectorAll('.pill-nav li').forEach((li, i) => li.style.setProperty('--i', i));
