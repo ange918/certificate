@@ -641,3 +641,4 @@ button, input, select, textarea { font-family: inherit; }
 .btn-dark { background: var(--ink); }
 .arrow { background: var(--ink); }
 .cta .hl { color: #ff9a5c; }
+.section[hidden] { display: none; }
