@@ -1,11 +1,11 @@
 // Mondukpè Montcho — réservation de rendez-vous
 const OFFERS = [
-  { min: 15,  price: 20,  title: 'Échange express',    sub: 'Question ciblée',        tags: ['Visio', 'Avis rapide', 'Orientation'], c: ['#3b5a7a', '#1c2b3c'] },
-  { min: 30,  price: 35,  title: 'Échange découverte', sub: 'Premier tour du projet', tags: ['Visio', 'Diagnostic', 'Pistes'],       c: ['#7a4b3b', '#2c1a14'] },
-  { min: 45,  price: 50,  title: 'Échange approfondi', sub: 'Analyse détaillée',      tags: ['Visio', 'Stratégie', 'Conseils'],      c: ['#3f6b4f', '#16281d'] },
-  { min: 60,  price: 65,  title: 'Séance complète',    sub: 'Une heure dédiée',       tags: ['Tous modes', 'Plan d’action', 'Suivi'], c: ['#5a4a7a', '#201a2e'] },
-  { min: 90,  price: 90,  title: 'Atelier de projet',  sub: 'Travail en profondeur',  tags: ['Tous modes', 'Atelier', 'Livrable'],   c: ['#7a6a3b', '#2c2514'] },
-  { min: 120, price: 120, title: 'Session intensive',  sub: 'Deux heures, un cap',    tags: ['Tous modes', 'Feuille de route', 'Suivi'], c: ['#3b7a76', '#142b29'] }
+  { min: 15,  price: 20,  title: 'Échange express',    sub: 'Question ciblée',        tags: ['Visio', 'Avis rapide', 'Orientation'], c: ['#d2521b', '#8a2f0c'] },
+  { min: 30,  price: 35,  title: 'Échange découverte', sub: 'Premier tour du projet', tags: ['Visio', 'Diagnostic', 'Pistes'],       c: ['#2a2419', '#0a0905'] },
+  { min: 45,  price: 50,  title: 'Échange approfondi', sub: 'Analyse détaillée',      tags: ['Visio', 'Stratégie', 'Conseils'],      c: ['#b9774a', '#5a3216'] },
+  { min: 60,  price: 65,  title: 'Séance complète',    sub: 'Une heure dédiée',       tags: ['Tous modes', 'Plan d’action', 'Suivi'], c: ['#e08a4f', '#a8431a'] },
+  { min: 90,  price: 90,  title: 'Atelier de projet',  sub: 'Travail en profondeur',  tags: ['Tous modes', 'Atelier', 'Livrable'],   c: ['#4a3f2c', '#1c1710'] },
+  { min: 120, price: 120, title: 'Session intensive',  sub: 'Deux heures, un cap',    tags: ['Tous modes', 'Feuille de route', 'Suivi'], c: ['#c25c2c', '#521e08'] }
 ];
 const HOURS = { start: 9, end: 18 };           // créneaux 9h–18h, du lundi au vendredi
 const STEP = 15;                                // pas de réservation (minutes)
