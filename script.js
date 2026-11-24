@@ -11,11 +11,12 @@ const STATE_FACTS = [
 ];
 
 const INSTITUTION_CATEGORIES = [
-  { id: 'all', label: 'Toutes les institutions' },
+  { id: 'all', label: 'Toutes (18)' },
   { id: 'legislatif', label: 'Pouvoir législatif' },
   { id: 'juridictions', label: 'Hautes juridictions' },
   { id: 'regulation', label: 'Consultation, Médiation & Régulation' },
-  { id: 'elections-droits', label: 'Élections & Droits (INF)' }
+  { id: 'elections-droits', label: 'Élections & Droits (INF)' },
+  { id: 'agences', label: 'Agences nationales' }
 ];
 
 const INSTITUTIONS = [
@@ -268,6 +269,206 @@ const INSTITUTIONS = [
       'Prérogative légale d’ester en justice devant les tribunaux pour poursuivre les auteurs de violences basées sur le genre.',
       'Plaidoyer et programmes pour le leadership féminin et l’autonomisation économique et éducative des femmes.'
     ]
+  },
+  {
+    id: 'adpme',
+    num: '11',
+    cat: 'agences',
+    catName: 'Agence nationale',
+    name: 'Agence de Développement des PME (ADPME)',
+    leaderLabel: 'Directrice générale',
+    leader: 'Alvyne Alia',
+    governance: 'Établissement public dédié à l’accompagnement des petites et moyennes entreprises, dirigé par la Directrice générale Alvyne Alia et structuré autour du guichet numérique ePME et de services de structuration, financement et croissance des PME.',
+    location: {
+      city: 'Cotonou',
+      district: 'Cadjèhoun · Immeuble R+5 C/1184',
+      address: 'Immeuble R+5, Lot C/1184, Cadjèhoun, Cotonou',
+      contact: 'adpme.bj · contact@adpme.bj'
+    },
+    domain: 'adpme.bj',
+    url: 'https://adpme.bj',
+    summary: 'Bras opérationnel de l’État pour l’accompagnement technique, managérial et financier des micro, petites et moyennes entreprises béninoises.',
+    devRole: 'En consolidant le tissu des PME locales, en facilitant leur formalisation, leur accès au crédit et aux marchés publics ou privés, l’ADPME stimule la création d’emplois durables, l’industrialisation et la valeur ajoutée nationale.',
+    actions: [
+      'Diagnostic, incubation et accompagnement sur mesure des PME via la plateforme numérique ePME (epme.adpme.bj).',
+      'Facilitation de l’accès au financement bancaire, aux garanties et aux programmes d’appui sectoriels.',
+      'Appui à la mise à niveau, à la certification qualité et à la compétitivité des entreprises nationales.'
+    ]
+  },
+  {
+    id: 'apiex',
+    num: '12',
+    cat: 'agences',
+    catName: 'Agence nationale',
+    name: 'Agence de Promotion des Investissements et des Exportations (APIEx)',
+    leaderLabel: 'Directeur général',
+    leader: 'Éric Akouté',
+    governance: 'Placée sous la tutelle de la Présidence de la République et dirigée par le Directeur général Éric Akouté, l’APIEx centralise la création d’entreprises, l’octroi des avantages du Code des investissements et la promotion des exportations.',
+    location: {
+      city: 'Cotonou',
+      district: 'Quartier Haie Vive / Zone des Ambassades',
+      address: 'Cotonou, République du Bénin',
+      contact: 'investbenin.bj · monentreprise.bj'
+    },
+    domain: 'investbenin.bj',
+    url: 'https://investbenin.bj',
+    summary: 'Guichet unique de création d’entreprises, d’attraction des investissements productifs et de promotion du label « Made in Bénin » à l’export.',
+    devRole: 'Moteur de la transformation structurelle de l’économie béninoise, l’APIEx attire les capitaux nationaux et internationaux vers la GDIZ et les filières agro-industrielles tout en simplifiant les formalités entrepreneuriales en ligne.',
+    actions: [
+      'Création et immatriculation d’entreprises en ligne en quelques heures sur monentreprise.bj.',
+      'Instruction des demandes d’agrément au Code des investissements et accompagnement des investisseurs.',
+      'Promotion des produits béninois à l’international et développement des exportations à forte valeur ajoutée.'
+    ]
+  },
+  {
+    id: 'anip',
+    num: '13',
+    cat: 'agences',
+    catName: 'Agence nationale',
+    name: 'Agence Nationale d’Identification des Personnes (ANIP)',
+    leaderLabel: 'Directeur général',
+    leader: 'Marc-André Loko',
+    governance: 'Dirigée par le Directeur général Marc-André Loko, l’ANIP gère le Registre National des Personnes Physiques (RNPP), le Numéro Personnel d’Identification (NPI) et la délivrance des actes d’état civil sécurisés.',
+    location: {
+      city: 'Cotonou',
+      district: 'Kouhounou · Face Stade Général Mathieu Kérékou',
+      address: 'Kouhounou, face au Stade Général Mathieu Kérékou, Cotonou',
+      contact: 'anip.bj · eservices.anip.bj'
+    },
+    domain: 'anip.bj',
+    url: 'https://www.anip.bj',
+    summary: 'Agence chargée de l’identification biométrique des citoyens, de la gestion du RNPP et de la délivrance des titres d’identité et d’état civil.',
+    devRole: 'En dotant chaque citoyen d’une identité légale fiable et interopérable, l’ANIP sécurise les démarches administratives, la protection sociale, l’inclusion financière et la fiabilité du fichier électoral.',
+    actions: [
+      'Attribution du Numéro Personnel d’Identification (NPI) et tenue du Registre National des Personnes Physiques.',
+      'Délivrance en ligne de la Carte d’Identité Biométrique (CBi), du CIP, de l’acte de naissance sécurisé et du certificat de résidence.',
+      'Mise à jour des données d’état civil sur l’ensemble des 77 communes et pour la diaspora.'
+    ]
+  },
+  {
+    id: 'asin',
+    num: '14',
+    cat: 'agences',
+    catName: 'Agence nationale',
+    name: 'Agence des Systèmes d’Information et du Numérique (ASIN)',
+    leaderLabel: 'Directeur général',
+    leader: 'Aristide Adjinacou',
+    governance: 'Dirigée par le Directeur général Aristide Adjinacou, l’ASIN regroupe les pôles d’infrastructures numériques, de développement des e-services publics, de cybersécurité (bjCSIRT) et d’interopérabilité de l’État.',
+    location: {
+      city: 'Cotonou',
+      district: 'Tokpa Hoho · Avenue Steinmetz',
+      address: 'Avenue Steinmetz, Rue 108, Lot 35B, Tokpa Hoho, Cotonou',
+      contact: 'asin.bj · contact@asin.bj'
+    },
+    domain: 'asin.bj',
+    url: 'https://asin.bj',
+    summary: 'Opérateur technique de la transformation numérique de l’État béninois, des infrastructures d’e-gouvernement et de la cybersécurité nationale.',
+    devRole: 'En déployant le portail national des services publics, l’échange sécurisé de données (X-Road) et la protection des systèmes critiques, l’ASIN fait du Bénin un pôle de référence numérique en Afrique de l’Ouest.',
+    actions: [
+      'Déploiement et maintenance des plateformes publiques (service-public.bj) et du socle d’interopérabilité X-Road.',
+      'Protection du cyberespace national, veille et réponse aux incidents de sécurité informatique (bjCSIRT).',
+      'Modernisation des infrastructures cloud, fibre optique et hébergement souverain des données publiques.'
+    ]
+  },
+  {
+    id: 'anatt',
+    num: '15',
+    cat: 'agences',
+    catName: 'Agence nationale',
+    name: 'Agence Nationale des Transports Terrestres (ANaTT)',
+    leaderLabel: 'Directeur général',
+    leader: 'Richard Dada',
+    governance: 'Placée sous la tutelle du ministère chargé des Transports et dirigée par le Directeur général Richard Dada, l’ANaTT coordonne la régulation des transports routiers, la gestion des titres de transport et les réformes de sécurité routière.',
+    location: {
+      city: 'Cotonou',
+      district: 'Akpakpa · Zone PLM / Fan Milk',
+      address: 'Quartier Akpakpa (Lot 4-6 PLM), Cotonou',
+      contact: 'anatt.bj · contact@anatt.bj'
+    },
+    domain: 'anatt.bj',
+    url: 'https://anatt.bj',
+    summary: 'Agence nationale chargée de la régulation des transports terrestres, des permis de conduire, cartes grises et de la sécurité routière.',
+    devRole: 'Par la dématérialisation des titres de transport et la professionnalisation du secteur routier, l’ANaTT fluidifie la mobilité des personnes et des marchandises sur les corridors nationaux et régionaux.',
+    actions: [
+      'Délivrance numérisée des permis de conduire, immatriculations de véhicules et cartes grises sécurisées.',
+      'Organisation des examens du permis de conduire et agrément des auto-écoles et transporteurs.',
+      'Contrôle technique automobile, régulation du transport urbain et actions de prévention routière.'
+    ]
+  },
+  {
+    id: 'andf',
+    num: '16',
+    cat: 'agences',
+    catName: 'Agence nationale',
+    name: 'Agence Nationale du Domaine et du Foncier (ANDF)',
+    leaderLabel: 'Directeur général',
+    leader: 'Xavier Elias Zola',
+    governance: 'Placée sous la tutelle du ministère de l’Économie et des Finances et dirigée par le Directeur général Xavier Elias Zola, l’ANDF pilote la mise en œuvre du Code foncier et domanial à travers ses bureaux communaux.',
+    location: {
+      city: 'Cotonou',
+      district: 'Sainte-Rita · Immeuble Aïssi',
+      address: 'Immeuble Aïssi, face à l’église Sainte-Rita, Cotonou',
+      contact: 'andf.bj · efoncier.bj'
+    },
+    domain: 'andf.bj',
+    url: 'https://andf.bj',
+    summary: 'Institution publique chargée de la sécurisation foncière, du cadastre national et de la délivrance des titres fonciers.',
+    devRole: 'En garantissant la propriété foncière et la transparence du cadastre, l’ANDF prévient les litiges domaniaux, facilite l’accès au crédit hypothécaire et sécurise les projets immobiliers, agricoles et industriels.',
+    actions: [
+      'Immatriculation foncière, gestion du cadastre national et délivrance du Titre Foncier sécurisé.',
+      'Déploiement des services fonciers en ligne (efoncier.bj) pour les demandes d’états descriptifs et formalités.',
+      'Conservation des domaines de l’État et accompagnement des collectivités locales dans la gestion foncière.'
+    ]
+  },
+  {
+    id: 'benin-tourisme',
+    num: '17',
+    cat: 'agences',
+    catName: 'Agence nationale',
+    name: 'Agence Bénin Tourisme (ex-ANPT)',
+    leaderLabel: 'Directeur général',
+    leader: 'Sindé Gilles Chekete',
+    governance: 'Dirigée par le Directeur général Sindé Gilles Chekete, l’Agence Bénin Tourisme (issue de l’ANPT) porte la valorisation des patrimoines historiques, muséaux et balnéaires ainsi que le rayonnement international de la destination Bénin.',
+    location: {
+      city: 'Cotonou',
+      district: 'Zongo · Rue des Cheminots',
+      address: 'Quartier Zongo, Immeuble Fawaz, Rue des Cheminots, Cotonou',
+      contact: 'benintourisme.bj · anpt.bj'
+    },
+    domain: 'benintourisme.bj',
+    url: 'https://benintourisme.bj',
+    summary: 'Agence nationale chargée de la promotion touristique de la destination Bénin et de la valorisation des sites patrimoniaux et culturels.',
+    devRole: 'Au cœur du positionnement culturel du Bénin, l’agence structure l’offre autour d’Abomey, Ouidah, Ganvié et de la Pendjari afin de faire du tourisme et de l’économie créative un levier majeur de croissance et d’emplois.',
+    actions: [
+      'Promotion internationale de la marque Bénin Tourisme et des grands événements culturels nationaux.',
+      'Valorisation et mise en tourisme des cités historiques, musées, circuits mémoriels et parcs nationaux.',
+      'Accompagnement des professionnels de l’hôtellerie, de l’écotourisme et du guidage vers les standards internationaux.'
+    ]
+  },
+  {
+    id: 'anpe',
+    num: '18',
+    cat: 'agences',
+    catName: 'Agence nationale',
+    name: 'Agence Nationale Pour l’Emploi (ANPE)',
+    leaderLabel: 'Directeur général',
+    leader: 'Urbain Stanislas Amègbédji',
+    governance: 'Dirigée par le Directeur général Urbain Stanislas Amègbédji et déployée à travers des antennes départementales sur tout le territoire, l’ANPE anime le service public de l’emploi et de l’insertion professionnelle.',
+    location: {
+      city: 'Cotonou',
+      district: 'Aïdjedo · Immeuble Saroukou',
+      address: 'Quartier Aïdjedo, von du Centre d’Accueil, Immeuble Saroukou, Cotonou',
+      contact: 'anpe.bj · sica.anpe.bj'
+    },
+    domain: 'anpe.bj',
+    url: 'https://anpe.bj',
+    summary: 'Service public de l’emploi assurant l’intermédiation entre demandeurs d’emploi et employeurs, l’orientation et l’insertion des jeunes.',
+    devRole: 'En rapprochant les compétences des besoins du marché du travail et en pilotant les programmes nationaux de stages et d’insertion, l’ANPE accompagne l’employabilité des jeunes et la croissance des entreprises.',
+    actions: [
+      'Mise en relation des candidats et des recruteurs via la plateforme numérique SIC@ et les agences locales.',
+      'Pilotage du Programme Spécial d’Insertion dans l’Emploi (PSIE) et des dispositifs d’appui aux jeunes diplômés.',
+      'Bilan de compétences, formation à l’employabilité et observation du marché national du travail.'
+    ]
   }
 ];
 
@@ -310,7 +511,7 @@ const SYMBOLS = [
     tab: '3. La Devise Nationale',
     title: 'La Devise Nationale',
     short: '« Fraternité – Justice – Travail » : trois piliers éthiques.',
-    desc: '« Fraternité – Justice – Travail » — Trois piliers éthiques qui guident l’action publique et la vie citoyenne : la solidarité nationale, l’équité devant la loi et l’effort collectif pour le développement.',
+    desc: '« Fraternité – Justice – Travail » : trois piliers éthiques qui guident l’action publique et la vie citoyenne : la solidarité nationale, l’équité devant la loi et l’effort collectif pour le développement.',
     details: [
       { k: 'Fraternité', v: 'Solidarité nationale et cohésion' },
       { k: 'Justice', v: 'Équité devant la loi' },
@@ -318,9 +519,9 @@ const SYMBOLS = [
     ],
     visual: () => `
       <div style="display:grid;gap:8px;width:100%">
-        <div style="padding:10px 14px;border-radius:10px;background:#f5eedf;font-weight:700;color:#0a0905">Fraternité</div>
-        <div style="padding:10px 14px;border-radius:10px;background:#f5eedf;font-weight:700;color:#d2521b">Justice</div>
-        <div style="padding:10px 14px;border-radius:10px;background:#f5eedf;font-weight:700;color:#0a0905">Travail</div>
+        <div style="padding:10px 14px;border-radius:10px;background:var(--card);font-weight:700;color:var(--ink)">Fraternité</div>
+        <div style="padding:10px 14px;border-radius:10px;background:var(--card);font-weight:700;color:var(--orange)">Justice</div>
+        <div style="padding:10px 14px;border-radius:10px;background:var(--card);font-weight:700;color:var(--ink)">Travail</div>
       </div>
     `
   },
@@ -330,16 +531,16 @@ const SYMBOLS = [
     tab: '4. L’Hymne National',
     title: 'L’Hymne National : L’Aube Nouvelle',
     short: 'Adopté en 1960, appel à l’unité et à la construction pacifique.',
-    desc: 'L’Aube Nouvelle — Adopté lors de l’indépendance en 1960, il appelle les citoyens à l’unité, à la fierté nationale et à la construction pacifique de la Nation.',
+    desc: 'L’Aube Nouvelle : adopté lors de l’indépendance en 1960, il appelle les citoyens à l’unité, à la fierté nationale et à la construction pacifique de la Nation.',
     details: [
       { k: 'Titre officiel', v: 'L’Aube Nouvelle' },
       { k: 'Adoption', v: 'Indépendance de 1960' },
       { k: 'Structure', v: 'Refrain et trois couplets officiels' }
     ],
     visual: () => `
-      <div style="text-align:left;width:100%;padding:14px 16px;background:#f5eedf;border-radius:12px">
-        <p style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#d2521b;margin-bottom:6px">Refrain — L’Aube Nouvelle</p>
-        <p style="font-size:13px;line-height:1.6;color:#0a0905;font-style:italic">
+      <div style="text-align:left;width:100%;padding:14px 16px;background:var(--card);border-radius:12px">
+        <p style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--orange);margin-bottom:6px">Refrain : L’Aube Nouvelle</p>
+        <p style="font-size:13px;line-height:1.6;color:var(--ink);font-style:italic">
           Enfants du Bénin, debout !<br>
           La liberté d’un cri sonore<br>
           Chante aux premiers feux de l’aurore ;<br>
@@ -1361,12 +1562,17 @@ function renderInstitutions() {
     return matchCat && matchQuery;
   });
 
-  $('#institutionCount').textContent = `${filtered.length} institution${filtered.length > 1 ? 's' : ''}`;
+  const countText = state.instCat === 'agences'
+    ? `${filtered.length} agence${filtered.length > 1 ? 's' : ''} nationale${filtered.length > 1 ? 's' : ''}`
+    : state.instCat === 'all' && !q
+      ? `${filtered.length} institutions & agences`
+      : `${filtered.length} structure${filtered.length > 1 ? 's' : ''}`;
+  $('#institutionCount').textContent = countText;
 
   if (!filtered.length) {
     $('#institutionsGrid').innerHTML = `
       <div class="empty-state" style="grid-column:1/-1">
-        <p>Aucune institution ne correspond à « ${state.instQuery} ».</p>
+        <p>Aucune institution ou agence ne correspond à « ${state.instQuery} ».</p>
         <button type="button" class="btn btn-dark btn-sm" id="resetInstBtn">${BTN_ICON.rotate} Tout afficher</button>
       </div>
     `;
@@ -1389,7 +1595,7 @@ function renderInstitutions() {
       <div class="inst-card-actions">
         <button type="button" class="btn btn-dark btn-sm" data-institution-slug="${inst.id}">
           ${BTN_ICON.file}
-          Détails de l’institution
+          ${inst.cat === 'agences' ? 'Détails de l’agence' : 'Détails de l’institution'}
           ${BTN_ICON.arrowRight}
         </button>
         ${inst.url ? `<a href="${inst.url}" target="_blank" rel="noopener noreferrer" class="link-action">${inst.domain} ${BTN_ICON.external}</a>` : ''}
@@ -1404,9 +1610,9 @@ function renderInstitutionPage(slug) {
   const prev = INSTITUTIONS[(idx - 1 + INSTITUTIONS.length) % INSTITUTIONS.length];
   const next = INSTITUTIONS[(idx + 1) % INSTITUTIONS.length];
 
-  $('#instDetailCat').textContent = `Institution ${inst.num} · ${inst.catName} · ${inst.location.city}`;
+  $('#instDetailCat').textContent = `${inst.cat === 'agences' ? 'Agence nationale' : 'Institution'} ${inst.num} · ${inst.catName} · ${inst.location.city}`;
   $('#instDetailTitle').textContent = inst.name;
-  $('#instDetailLead').textContent = `${inst.leaderLabel} : ${inst.leader} — ${inst.summary}`;
+  $('#instDetailLead').textContent = `${inst.leaderLabel} : ${inst.leader}. ${inst.summary}`;
 
   $('#instDetailPhotoBox').innerHTML = `
     <div class="ministry-portrait-frame">
@@ -1427,7 +1633,7 @@ function renderInstitutionPage(slug) {
     <div class="location-box">
       <div class="location-head">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        <h3>Localisation &amp; Siège de l’institution</h3>
+        <h3>${inst.cat === 'agences' ? 'Localisation &amp; Siège de l’agence' : 'Localisation &amp; Siège de l’institution'}</h3>
       </div>
       <dl class="location-grid">
         <div class="fact-row">
@@ -1648,7 +1854,7 @@ function openMonumentModal(id, triggerEl = null) {
     </div>
     <p class="symbol-kicker">${m.location} · ${m.category}</p>
     <h3 id="monModalTitle" style="font-size:24px;margin-bottom:10px">${m.title}</h3>
-    <p style="font-size:13.5px;line-height:1.7;color:#5c5648;margin-bottom:12px">${m.desc}</p>
+    <p style="font-size:13.5px;line-height:1.7;color:var(--text-soft);margin-bottom:12px">${m.desc}</p>
     <p style="font-size:13px;line-height:1.7;color:var(--ink);margin-bottom:14px">${m.context}</p>
     <p style="font-size:12px;font-weight:700;color:var(--ink)">Repère patrimonial : <span style="color:var(--orange)">${m.highlight}</span></p>
     <div class="monument-modal-footer">
@@ -1778,7 +1984,7 @@ function renderMinistryPage(slug) {
 
   $('#minDetailPole').textContent = `${m.poleName} · ${m.location.city}`;
   $('#minDetailTitle').textContent = m.name;
-  $('#minDetailLead').textContent = `Ministre en exercice : ${m.minister} — ${m.mission}`;
+  $('#minDetailLead').textContent = `Ministre en exercice : ${m.minister}. ${m.mission}`;
 
   $('#minDetailPhotoBox').innerHTML = `
     <div class="ministry-portrait-frame">
@@ -1867,7 +2073,16 @@ function renderMinistryPage(slug) {
   $$('[data-three-preset]').forEach((btn) => {
     btn.classList.toggle('on', btn.dataset.threePreset === 'overview');
   });
+  const isDarkTheme = document.documentElement.getAttribute('data-theme') === 'dark';
+  const defaultLight = isDarkTheme ? 'dusk' : 'day';
+  const lightBtn = $('#min3DLightBtn');
+  if (lightBtn) {
+    lightBtn.dataset.light = defaultLight;
+    lightBtn.textContent = defaultLight === 'dusk' ? 'Ambiance : Crépuscule' : 'Ambiance : Jour';
+    lightBtn.classList.toggle('on', defaultLight === 'dusk');
+  }
   window.Ministry3DScene?.mount($('#min3DStage'), m);
+  window.Ministry3DScene?.setLighting(defaultLight);
 }
 
 // Contrôles de la scène 3D ministérielle
@@ -2053,8 +2268,55 @@ $('#citizenForm').addEventListener('submit', (e) => {
   e.target.reset();
 });
 
+// ===== MODE NUIT / JOUR =====
+const THEME_STORAGE_KEY = 'benin-portail-theme';
+
+function isNightModeActive() {
+  return document.documentElement.getAttribute('data-theme') === 'dark';
+}
+
+function syncThemeToggleUI(dark) {
+  const btn = $('#themeToggle');
+  if (!btn) return;
+  btn.setAttribute('aria-pressed', String(dark));
+  btn.setAttribute('aria-label', dark ? 'Activer le mode jour' : 'Activer le mode nuit');
+  btn.title = dark ? 'Mode jour' : 'Mode nuit';
+}
+
+function applyTheme(dark, persist = true) {
+  if (dark) {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  } else {
+    document.documentElement.removeAttribute('data-theme');
+  }
+  if (persist) {
+    try {
+      localStorage.setItem(THEME_STORAGE_KEY, dark ? 'dark' : 'light');
+    } catch {
+      // Ignore storage restrictions
+    }
+  }
+  syncThemeToggleUI(dark);
+
+  const lightMode = dark ? 'dusk' : 'day';
+  const lightBtn = $('#min3DLightBtn');
+  if (lightBtn) {
+    lightBtn.dataset.light = lightMode;
+    lightBtn.textContent = lightMode === 'dusk' ? 'Ambiance : Crépuscule' : 'Ambiance : Jour';
+    lightBtn.classList.toggle('on', lightMode === 'dusk');
+  }
+  if (state.route === 'ministere') {
+    window.Ministry3DScene?.setLighting(lightMode);
+  }
+}
+
+$('#themeToggle')?.addEventListener('click', () => {
+  applyTheme(!isNightModeActive(), true);
+});
+
 // ===== INITIALISATION =====
 function init() {
+  syncThemeToggleUI(isNightModeActive());
   renderStateFacts();
   renderInstitutionFilters();
   renderInstitutions();

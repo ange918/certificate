@@ -3,14 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>République du Bénin — Portail Citoyen &amp; Institutionnel</title>
+  <title>République du Bénin · Portail Citoyen &amp; Institutionnel</title>
   <meta name="description" content="Portail citoyen et institutionnel de la République du Bénin : découvrir le Bénin, ses symboles et son patrimoine, consulter le Gouvernement et accéder aux E-Services officiels.">
-  <meta property="og:title" content="République du Bénin — Portail Citoyen &amp; Institutionnel">
+  <meta property="og:title" content="République du Bénin · Portail Citoyen &amp; Institutionnel">
   <meta property="og:description" content="Explorez la République du Bénin, l'Exécutif investi le 24 mai 2026 et l'ensemble des plateformes E-Services officielles (.bj et .gouv.bj).">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('benin-portail-theme');
+        var dark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (dark) document.documentElement.setAttribute('data-theme', 'dark');
+      } catch (e) {}
+    })();
+  </script>
   <script type="importmap">
     {
       "imports": {
@@ -46,6 +55,10 @@
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg>
         Bénin
       </span>
+      <button type="button" class="theme-toggle" id="themeToggle" aria-label="Activer le mode nuit" aria-pressed="false" title="Mode nuit / jour">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </button>
       <a href="#eservices" class="btn btn-dark btn-sm" data-route="eservices">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
         Accéder aux E-Services
@@ -98,7 +111,7 @@
       <section class="section" id="apropos">
         <div class="head">
           <h2>À propos de<br>l'État <span class="hl">béninois</span></h2>
-          <p class="small">Identité &amp; Souveraineté — État souverain, indépendant et laïc fondé sur l'État de droit.</p>
+          <p class="small">Identité &amp; Souveraineté : État souverain, indépendant et laïc fondé sur l'État de droit.</p>
         </div>
 
         <div class="about">
@@ -304,24 +317,24 @@
           <div class="hero-copy">
             <p class="hero-kicker">Architecture de l'État · République du Bénin</p>
             <h1 class="hero-giant" aria-label="Institutions et Repères de la République"><span class="w">Institutions</span> <span class="w">&amp;</span> <span class="w">Repères</span></h1>
-            <p class="hero-roles">État de droit <i></i> Séparation des pouvoirs <i></i> 10 Institutions</p>
-            <p class="hero-line">Découvrez les repères fondamentaux de l'État béninois ainsi que les grandes institutions de la République, de l'Assemblée nationale jusqu'à l'Institut National de la Femme.</p>
+            <p class="hero-roles">État de droit <i></i> 10 Institutions <i></i> 8 Agences nationales</p>
+            <p class="hero-line">Découvrez les repères fondamentaux de l'État béninois, les grandes institutions constitutionnelles ainsi que les principales agences nationales d'exécution (ADPME, APIEx, ANIP, ASIN, ANaTT, ANDF, Bénin Tourisme et ANPE).</p>
           </div>
         </div>
       </section>
 
       <section class="section" id="autres-institutions">
         <div class="head">
-          <h2>Les <span class="hl">Institutions</span><br>de la République</h2>
-          <p class="small">De l'Assemblée nationale à l'Institut National de la Femme (INF) : pouvoir législatif, hautes juridictions, organes consultatifs, régulation et protection des droits.</p>
+          <h2>Institutions &amp;<br><span class="hl">Agences</span> Nationales</h2>
+          <p class="small">De l'Assemblée nationale à l'Institut National de la Femme (INF), ainsi que les agences nationales opérationnelles au service des citoyens, des entrepreneurs et de l'investissement.</p>
         </div>
 
         <div class="search-card">
           <div class="toolbar-row">
-            <input type="search" id="institutionSearch" class="search-input" placeholder="Rechercher une institution, un dirigeant ou une ville (Assemblée, Cour constitutionnelle, HAAC, INF...)" aria-label="Rechercher une institution de la République">
-            <span class="count-label" id="institutionCount">10 institutions</span>
+            <input type="search" id="institutionSearch" class="search-input" placeholder="Rechercher une institution ou agence (Assemblée, ADPME, APIEx, ANIP, ASIN, ANaTT...)" aria-label="Rechercher une institution ou une agence nationale">
+            <span class="count-label" id="institutionCount">18 institutions &amp; agences</span>
           </div>
-          <div class="filter" id="institutionFilters" role="tablist" aria-label="Filtrer les institutions par domaine"></div>
+          <div class="filter" id="institutionFilters" role="tablist" aria-label="Filtrer les institutions et agences par domaine"></div>
         </div>
 
         <div class="why" id="institutionsGrid"></div>
@@ -406,7 +419,7 @@
         <p class="footer-copy">© 2026 République du Bénin<br>Fraternité • Justice • Travail</p>
       </div>
     </div>
-    <div class="watermark" aria-hidden="true">BÉNIN</div>
+    <div class="watermark" aria-hidden="true"><span class="watermark-text">BÉNIN</span></div>
   </footer>
 </div>
 
