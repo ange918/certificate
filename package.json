@@ -1,16 +1,26 @@
 {
-  "name": "republique-du-benin-portail",
-  "version": "1.0.0",
+  "name": "portail-citoyen-benin",
+  "version": "2.0.0",
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "node server.js",
-    "start": "node server.js",
-    "build": "node scripts/build.mjs",
-    "lint": "node --check server.js && node --check script.js && node --check src/three-ministry-scene.js && node --check src/maps-ministry.js && node --check lib/maps-proxy.js && node --check api/maps-config.js && node --check api/geocode.js && node --check scripts/build.mjs"
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview --host 0.0.0.0 --port 4173"
   },
   "dependencies": {
-    "express": "^5.2.1",
-    "three": "^0.187.0"
+    "motion": "^12.23.24",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-router-dom": "^7.9.6"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.17",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.1",
+    "tailwindcss": "^4.1.17",
+    "typescript": "^5.9.3",
+    "vite": "^7.2.6"
   }
 }
